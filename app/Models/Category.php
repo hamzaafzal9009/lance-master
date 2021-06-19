@@ -9,7 +9,16 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'photo', 'is_featured', 'image'];
+    protected $fillable = ['name', 'slug'];
+
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'name',
+            ],
+        ];
+    }
 
     public function video()
     {

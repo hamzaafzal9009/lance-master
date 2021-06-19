@@ -1,32 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title')</title>
-
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/front/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/front/css/style.css') }}">
-    <style>
-        .main-container {
-            width: 95%;
-            margin: auto
-        }
-
-    </style>
-    @yield('styles')
-
-</head>
-
-<body>
+@extends('layout.front-master')
+@section('navbar')
     <nav class="navbar navbar-expand-lg navbar-light">
-
         <a class="navbar-brand logo" href="#">
             VID BITE
         </a>
@@ -71,7 +45,7 @@
                                 <div class="dd_right">
                                     <ul>
                                         <li class="add_pro">
-                                            <a href="{{ route('user.profile', auth()->user()) }}">Profile</a>
+                                            <a href="profile.php">Profile</a>
                                         </li>
                                         <li class="add_pro">
                                             <a href="studio.php">Studio</a>
@@ -98,39 +72,4 @@
             </div>
         </div>
     </nav>
-    <div class="main-container">
-        @yield('content')
-    </div>
-
-    <script src="https://kit.fontawesome.com/74d240b4ae.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
-    </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-    <script>
-        var dd_main = document.querySelector(".dd_main");
-
-        dd_main.addEventListener("click", function() {
-            this.classList.toggle("active");
-        })
-
-    </script>
-    <script>
-        function playVideo(id) {
-            $(`#${id}`).click(function() {
-                this.paused ? this.play() : this.pause();
-            });
-
-        }
-
-    </script>
-</body>
-
-</html>
+@endsection

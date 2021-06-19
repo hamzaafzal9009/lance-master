@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\VideoContent;
 
 class MainController extends Controller
 {
     public function index()
     {
-        return "Hello World";
+        $user = auth()->user();
+        $recommendedVideos = VideoContent::with(['views', 'user'])->inRandomOrder()->limit(8)->get();
+        // return $recommendedVideos;
+        return view('front.index', compact(['user', 'recommendedVideos']));
     }
 }

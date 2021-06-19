@@ -21,34 +21,26 @@ Auth::routes();
 Route::group(['middleware' => 'auth', 'web'], function () {
     Route::get('/home', [App\Http\Controllers\Front\MainController::class, 'index'])->name('home');
 
-    Route::get('/user', function () {
-        return view('welcome');
-    });
     Route::prefix('admin')->middleware('can:isAdmin')->group(function () {
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-        // Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
-        // USER MANAGEMENT SYSTEM STARTS HERE
-        Route::get('/usermanagement', [App\Http\Controllers\UserManagementController::class, 'allUser']);
-        // Create User with Get Command and POST call to ADD USER into our Database
-        Route::get('/create', [App\Http\Controllers\UserManagementController::class, 'create']);
-        Route::post('/add', [App\Http\Controllers\UserManagementController::class, 'store']);
-        // End Here
-        // Edit User from User Management System
-        Route::get('/edit/{id}', [App\Http\Controllers\UserManagementController::class, 'editUser']);
-        Route::post('/update/{id}', [App\Http\Controllers\UserManagementController::class, 'updateUser']);
-        // End Here
-        Route::delete('delete/{id}', [App\Http\Controllers\UserManagementController::class, 'delete']);
-        // USER MANAGEMENT SYSTEM END HERE
+        Route::get('/usermanagement', [App\Http\Controllers\UserManagementController::class, 'allUser'])->name("allUsers");
+        Route::get('/create', [App\Http\Controllers\UserManagementController::class, 'create'])->name("createUser");
+        Route::post('/add', [App\Http\Controllers\UserManagementController::class, 'store'])->name("addUser");
+        Route::get('/edit/{id}', [App\Http\Controllers\UserManagementController::class, 'editUser'])->name("editUser");
+        Route::post('/update/{id}', [App\Http\Controllers\UserManagementController::class, 'updateUser'])->name("updateUser");
+        Route::delete('delete/{id}', [App\Http\Controllers\UserManagementController::class, 'delete'])->name("deleteUser");
+        Route::get('/accounts-edits/{id}', [App\Http\Controllers\UserController::class, 'editUserDetails'])->name("editUserDetails");
+        Route::post('/accounts-update/{id}', [App\Http\Controllers\UserController::class, 'updateUser'])->name("updateUserAccount");
 
-        // USER FUNCTIONALITY START HERE
-        // Route::get('acounts/details', [App\Http\Controllers\UserController::class, 'editUserDetails']);
-        // Edit User from User Management System
-        Route::get('/accounts-edits/{id}', [App\Http\Controllers\UserController::class, 'editUserDetails']);
-        Route::post('/accounts-update/{id}', [App\Http\Controllers\UserController::class, 'updateUser']);
-        // End Here
-        // USER FUNCTIONALITY END HERE
+        Route::resource('/categories', App\Http\Controllers\CategoryController::class);
 
-        Route::get('/form-upload', [App\Http\Controllers\VideoContentController::class, 'create'])->name('uploadform');
-        Route::post('/form-upload', [App\Http\Controllers\VideoContentController::class, 'store'])->name('uploadform');
     });
+
+    Route::prefix('user')->group(function () {
+        Route::get('/profile/{id}', [App\Http\Controllers\Front\UserController::class, 'index'])->name('user.profile');
+        Route::get('/studio', [App\Http\Controllers\Front\UserController::class, 'studio'])->name('user.studio');
+    });
+
+    Route::get('/form-upload', [App\Http\Controllers\VideoContentController::class, 'create'])->name('uploadform');
+    Route::post('/form-upload', [App\Http\Controllers\VideoContentController::class, 'store'])->name('uploadform');
 });

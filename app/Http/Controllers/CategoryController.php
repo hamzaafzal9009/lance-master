@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::get();
+        return view('admin.categories.index', compact(['categories']));
     }
 
     /**
@@ -24,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
@@ -35,7 +37,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $category = new Category;
+        $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
+        $category->save();
+        return redirect()->back()->with('Success', 'Category Created Successfully.');
     }
 
     /**
@@ -55,9 +61,14 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+
+        // return $category;
+
+        $category = Category::find($id);
+        return view('admin.categories.edit', compact('category'));
+
     }
 
     /**
@@ -69,7 +80,14 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $categorySave = Category::find($category->id);
+        $categorySave->name = $request->name;
+        $categorySave->slug = Str::slug($request->name);
+        if ($categorySave->save()) {
+            return redirect()->back()->with('Success', 'Category Updated Successfully.');
+        } else {
+            return redirect()->back()->with('Error', 'Unable to update category at this moment.');
+        }
     }
 
     /**
@@ -78,8 +96,13 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        if ($category->delete()) {
+            return redirect()->back()->with('Success', 'Category Deleted Successfully.');
+        } else {
+            return redirect()->back()->with('Error', 'Unable to delete category at this moment.');
+        }
     }
 }

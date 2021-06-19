@@ -49,14 +49,20 @@ class VideoContentController extends Controller
         $videoModel = new VideoContent();
 
         if ($req->file()) {
-            $videoName = time() . '_' . $req->video->getClientOriginalName();
-            $videoPath = $req->file('video')
-                ->storeAs('uploads', $videoName, 'public');
+            // $videoName = time() . '_' . $req->video->getClientOriginalName();
+            // $videoPath = $req->file('video')
+            //     ->storeAs('uploads', $videoName, 'public');
 
-            $videoModel->videoname = time() . '_' . $req->video
-                ->getClientOriginalName();
-            $videoModel->video_path = '/storage/' . $videoPath;
+            $video = $req->file('video');
+            $videoName = time() . '_' . $video->getClientOriginalName();
+            $videoPath = public_path() . '/uploads/videos/';
+            $video->move($videoPath, $videoName);
+            $videoModel->video_path = '/uploads/videos/' . $videoName;
+
+            $videoModel->videoname = $videoName;
+
             $videoModel->name = $req->name;
+            $videoModel->u_id = auth()->id();
             $videoModel->title = $req->title;
             $videoModel->description = $req->description;
             $videoModel->category_id = $req->category;

@@ -1,9 +1,7 @@
-.wrapper
-{
+.wrapper {
     padding: 0px 30px;
 }
-.portal
-{
+.portal {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -11,67 +9,58 @@
     color: #fff;
 }
 
-.heading h2
-{
+.heading h2 {
     font-size: 30px;
     font-weight: bold;
-    border-bottom: 4px solid #007ACC;
+    border-bottom: 4px solid #007acc;
     text-align: center;
     text-transform: uppercase;
 }
-.sub_heading
-{
+.sub_heading {
     text-align: center;
     margin-top: 30px;
 }
 
-.sub_heading .head
-{
+.sub_heading .head {
     font-size: 35px;
     font-weight: bolder;
     margin-bottom: 0px;
 }
 
-.head_p
-{
+.head_p {
     font-size: 20px;
     font-weight: 700;
 }
 
-
-.dashContent .s_box
-{
-    background: #18181B;
+.dashContent .s_box {
+    background: #18181b;
     padding: 20px 30px;
     margin-top: 20px;
     border-radius: 8px;
     min-height: 380px;
     min-width: 500px;
 }
-.dashContent .box1{
-    background: #18181B;
+.dashContent .box1 {
+    background: #18181b;
     padding: 20px 30px;
     margin-top: 20px;
     border-radius: 8px;
     min-height: 380px;
     min-width: 200px;
 }
-.dashBtn
-{
+.dashBtn {
     display: flex;
     align-items: flex-end;
 }
 
-.s_box
-{
+.s_box {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     align-items: center;
 }
 
-.s_box > div
-{
+.s_box > div {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -79,47 +68,42 @@
     text-align: center;
 }
 
-.s_box i
-{
+.s_box i {
     font-size: 45px !important;
-    color: #ADADB8 !important;
+    color: #adadb8 !important;
     margin-bottom: 25px !important;
 }
 
-.boxBold
-{
+.boxBold {
     font-size: 22px !important;
     font-weight: bolder;
 }
 
-.boxLight
-{
-    font-size: 18px ;
+.boxLight {
+    font-size: 18px;
     margin-bottom: 20px;
     margin-top: 5px;
 }
-.ligh{
+.ligh {
     list-style: none;
     text-align: left;
 }
-.ligh li{
+.ligh li {
     padding: 20px;
     text-align: left !important;
     margin-left: -200px;
 }
-.list{
+.list {
     display: flex;
     padding: 10px;
     list-style: none;
 }
-.list li{
+.list li {
     padding: 20px;
-
 }
 
-.button
-{
-    background: #007ACC;
+.button {
+    background: #007acc;
     padding: 10px 20px;
     color: #fff;
     outline: none;
@@ -127,36 +111,32 @@
     border-radius: 5px;
 }
 
-.dashContent .box1
-{
+.dashContent .box1 {
     overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-.dashContent .box1 img{
+.dashContent .box1 img {
     height: 200px;
     width: 250px;
 }
 /* stream manager css */
-.stream_head
-{
-    background: #1F1F23;
-    color:#fff;
+.stream_head {
+    background: #1f1f23;
+    color: #fff;
     font-weight: 600;
     padding: 5px 20px;
 }
 
-.streamManager
-{
+.streamManager {
     padding: 100px 20px;
     color: #fff;
 }
 
 .chatContent,
-.quickContent
-{
-    background: #18181B;
+.quickContent {
+    background: #18181b;
     height: 77vh;
     margin: 2px 0px;
     padding: 10px;
@@ -165,8 +145,7 @@
     justify-content: space-between;
 }
 
-.chatContent input
-{
+.chatContent input {
     background: #464648;
     color: #fff;
     width: 100%;
@@ -176,22 +155,19 @@
     border-radius: 8px;
 }
 
-.chatContent input::placeholder
-{
+.chatContent input::placeholder {
     color: #fff;
 }
 
-.videoDiv
-{
+.videoDiv {
     height: 80vh;
     margin: 2px 0px;
 }
 
-.card1
-{
+.card1 {
     width: 100%;
     height: 120px;
-    background: #007ACC;
+    background: #007acc;
     color: #fff;
     border-radius: 8px;
     padding: 10px;
@@ -201,63 +177,53 @@
     font-weight: 600;
 }
 
-.card1 i
-{
+.card1 i {
     font-size: 20px;
 }
 
-.streamManager .heading
-{
+.streamManager .heading {
     width: fit-content;
     margin: 0px auto;
     margin-bottom: 50px;
 }
 
-@media only screen and (max-width:850px)
-{
-    .wrapper
-    {
+@media only screen and (max-width: 850px) {
+    .wrapper {
         padding: 30px 20px;
     }
 }
 
 /* modal css */
-.modal a.close-modal
-{
+.modal a.close-modal {
     top: 0 !important;
     right: 0 !important;
 }
 
-.modal
-{
-    background: #18181B !important;
+.modal {
+    background: #18181b !important;
     color: #fff;
 }
 
-.modal form > div
-{
+.modal form > div {
     width: 100%;
     display: flex;
     flex-direction: column;
     margin-top: 20px;
 }
 
-.modalBtn
-{
+.modalBtn {
     display: flex;
     justify-content: flex-end;
     margin-top: 20px;
 }
 
-.Mclose
-{
+.Mclose {
     background: #464648;
     margin-right: 20px;
 }
 
 form textarea,
-form input
-{
+form input {
     background: #464648;
     border: none;
     outline: none;
@@ -269,83 +235,70 @@ form input
 }
 
 form textarea::placeholder,
-form input::placeholder
-{
+form input::placeholder {
     color: #fff !important;
 }
 
-a
-{
+a {
     color: #fff !important;
 }
 
-.dashContent
-{
+.dashContent {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     width: 100%;
 }
 
-.dashContent > div
-{
+.dashContent > div {
     width: 31% !important;
 }
 
-.Srow
-{
+.Srow {
     display: flex;
     justify-content: space-between;
 }
 
 .Srow .scol1,
-.Srow .scol3
-{
+.Srow .scol3 {
     width: 25%;
 }
 
-.Srow .scol2
-{
+.Srow .scol2 {
     width: 49%;
 }
 /* playlist section */
-.playList
-{
+.playList {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
 }
 
-.playList > div
-{
+.playList > div {
     width: 24%;
 }
 
-.playList .boxImg
-{
+.playList .boxImg {
     width: 100%;
-    height: 150px;
     margin-top: 20px;
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
 }
 
-.playList .boxImg img
-{
+.playList .boxImg img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: top;
 }
 
-
-.details{
+.details {
     display: flex;
     margin: 15px 0;
 }
 
-.details .profile-pic{
+.details .profile-pic {
     background: #ccc;
     min-width: 35px;
     min-height: 35px;
@@ -356,12 +309,12 @@ a
     overflow: hidden;
 }
 
-.details .profile-pic img{
+.details .profile-pic img {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
-.uploaded::before{
+.uploaded::before {
     content: "";
     width: 3px;
     height: 3px;
@@ -371,7 +324,7 @@ a
     margin: 4px;
 }
 
-.title{
+.title {
     color: #fff;
     width: 230px;
     text-overflow: ellipsis;
@@ -379,13 +332,12 @@ a
     overflow: hidden;
 }
 
-.channel{
+.channel {
     font-size: 14px;
-    color: #BFBFBF;
+    color: #bfbfbf;
 }
-.views
-{
+.views {
     display: flex;
-    color: #BFBFBF;
+    color: #bfbfbf;
     font-size: 13px;
 }
