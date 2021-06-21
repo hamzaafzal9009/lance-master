@@ -62,4 +62,8 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\History', 'u_id', 'id');
     }
 
+    public function playlists()
+    {
+        return $this->hasMany('App\Models\Playlist', 'u_id', 'id');
+    }
 }

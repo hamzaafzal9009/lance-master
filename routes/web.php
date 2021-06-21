@@ -39,6 +39,11 @@ Route::group(['middleware' => 'auth', 'web'], function () {
     Route::prefix('user')->group(function () {
         Route::get('/profile/{id}', [App\Http\Controllers\Front\UserController::class, 'index'])->name('user.profile');
         Route::get('/studio', [App\Http\Controllers\Front\UserController::class, 'studio'])->name('user.studio');
+        Route::get('/upload', [App\Http\Controllers\Front\UserController::class, 'upload'])->name('user.upload');
+        Route::post('/upload', [App\Http\Controllers\Front\UserController::class, 'storeVideo'])->name('user.storeVideo');
+        Route::get('/edit-video/{id}', [App\Http\Controllers\Front\UserController::class, 'editVideo'])->name('user.editVideo');
+        Route::post('/edit-video/{id}', [App\Http\Controllers\Front\UserController::class, 'updateVideo'])->name('user.updateVideo');
+        Route::get('/delete-video/{id}', [App\Http\Controllers\Front\UserController::class, 'deleteVideo'])->name('user.deleteVideo');
     });
 
     Route::get('/form-upload', [App\Http\Controllers\VideoContentController::class, 'create'])->name('uploadform');

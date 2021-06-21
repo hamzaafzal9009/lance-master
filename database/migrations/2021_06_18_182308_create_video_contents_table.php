@@ -25,7 +25,8 @@ class CreateVideoContentsTable extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->string('videoname')->nullable();
             $table->string('video_path')->nullable();
-            $table->string('video')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->string('tags')->nullable();
             $table->foreign('u_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
