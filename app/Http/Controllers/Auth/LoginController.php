@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
+use App\Notifications\TwoFactorCode;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 
@@ -27,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::ADMIN;
+    protected $redirectTo = '/admin';
 
     /**
      * Create a new controller instance.
@@ -38,11 +38,18 @@ class LoginController extends Controller
     protected function authenticated($request, $user)
     {
 
-        // $microsoftSignIn = new AuthController();
-        // $microsoftSignIn->getAccessToken();
-        // dd($microsoftSignIn);
-        return redirect('/login')->with('Success', 'Please Check Your Status');
-        // }
+        if (!$user->verified) {
+            auth()->logout();
+            return back()->with('warning', 'You need to confirm your account. We have sent you an activation code, please check your email.');
+        }
+
+        $user->generateTwoFactorCode();
+        $user->notify(new TwoFactorCode());
+
+        if (!in_array('admin', $user->roles->pluck('name')->toArray())) {
+            $this->redirectTo = '/verify';
+        }
+
     }
 
     public function __construct()

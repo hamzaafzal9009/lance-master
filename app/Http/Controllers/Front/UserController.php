@@ -15,7 +15,40 @@ class UserController extends Controller
     public function index($id)
     {
         $user = auth()->user();
+        // return $user;
         return view('front.panel.profile', compact(['user']));
+    }
+
+    public function editProfile($id)
+    {
+        $user = User::find($id);
+        return view('front.panel.edit-profile', compact(['user']));
+    }
+
+    public function updateProfile(Request $request, $id)
+    {
+        // return $request->all();
+        $this->validate($request, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            // 'password' => ['required', 'string', 'min:8'],
+            'phone_number' => ['string', 'max:50'],
+        ]);
+
+        $user = User::find($id);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone_number = $request->phone_number;
+
+        if ($request->password != null) {
+            $user->password = Hash::make($request->password);
+        }
+
+        if ($user->save()) {
+            return redirect()->back()->with('success', "Successfully Updated");
+        }
+        // return redirect()->back()->with('error', "Unable to Update");
     }
 
     public function studio()

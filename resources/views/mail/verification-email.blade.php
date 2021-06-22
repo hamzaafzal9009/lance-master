@@ -1,14 +1,17 @@
-<br><br>
-Verification !
-<br>
-Please click the below link to verify your email and activate your account!
+<!DOCTYPE html>
+<html>
 
-Your Email: {{$email_data[0]}}
-Your password: {{$email_data[1]}}
-<br><br>
-<a href="#">Click Here!</a>
+<head>
+    <title>Welcome Email</title>
+</head>
 
-<br><br>
-Thank you!
-<br>
-coder aweso.me
+<body>
+    <h2>Welcome to the site {{ $user['name'] }}</h2>
+    <br />
+    Your registered email-id is <b>{{ $user['email'] }}</b> , Please click on the below link to verify your email
+    account
+    <br />
+    <a href="{{ url('user/verify', $user->verifyUser->token) }}">Verify Email</a>
+</body>
+
+</html>

@@ -16,13 +16,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('auth.login');
 });
-
+// Public Routes
+Route::get('/user/verify/{token}', [App\Http\Controllers\Auth\RegisterController::class, 'verifyUser']);
+Route::get('verify/resend', [App\Http\Controllers\Auth\TwoFactorController::class, 'resend'])->name('verify.resend');
+Route::resource('verify', App\Http\Controllers\Auth\TwoFactorController::class)->only(['index', 'store']);
 Auth::routes();
-Route::group(['middleware' => 'auth', 'web'], function () {
+
+// Protected Route
+Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
+
     Route::get('/home', [App\Http\Controllers\Front\MainController::class, 'index'])->name('home');
 
     Route::prefix('admin')->middleware('can:isAdmin')->group(function () {
-        Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+        Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home');
         Route::get('/usermanagement', [App\Http\Controllers\UserManagementController::class, 'allUser'])->name("allUsers");
         Route::get('/create', [App\Http\Controllers\UserManagementController::class, 'create'])->name("createUser");
         Route::post('/add', [App\Http\Controllers\UserManagementController::class, 'store'])->name("addUser");
@@ -38,6 +44,8 @@ Route::group(['middleware' => 'auth', 'web'], function () {
 
     Route::prefix('user')->group(function () {
         Route::get('/profile/{id}', [App\Http\Controllers\Front\UserController::class, 'index'])->name('user.profile');
+        Route::get('/edit-profile/{id}', [App\Http\Controllers\Front\UserController::class, 'editProfile'])->name('user.editProfile');
+        Route::post('/edit-profile/{id}', [App\Http\Controllers\Front\UserController::class, 'updateProfile'])->name('user.updateProfile');
         Route::get('/studio', [App\Http\Controllers\Front\UserController::class, 'studio'])->name('user.studio');
         Route::get('/upload', [App\Http\Controllers\Front\UserController::class, 'upload'])->name('user.upload');
         Route::post('/upload', [App\Http\Controllers\Front\UserController::class, 'storeVideo'])->name('user.storeVideo');

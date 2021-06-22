@@ -32,11 +32,29 @@
                         Profile Details
                     </p>
 
+                    <div class="user-details">
+                        <div class="d-flex justify-content-around">
+                            <p><strong>Name : </strong></p>
+                            <p>{{ $user->name }}</p>
+                        </div>
+                        <div class="d-flex justify-content-around">
+                            <p><strong>Email : </strong></p>
+                            <p>{{ $user->email }}</p>
+                        </div>
+                        <div class="d-flex justify-content-around">
+                            <p><strong>Contact : </strong></p>
+                            <p>{{ $user->phone_number }}</p>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="dashBtn">
-                    <button class="button">
+                    <a href="{{ route('user.editProfile', $user->id) }}" class="btn btn-primary d-block m-auto">
                         Edit Profile
-                    </button>
+                    </a>
+                    {{-- <button class="button">
+                        Edit Profile
+                    </button> --}}
                 </div>
             </div>
         </div>

@@ -61,11 +61,12 @@
 }
 
 .s_box > div {
-    display: flex;
+    width: 100%;
+    /* display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    text-align: center; */
 }
 
 .s_box i {
@@ -385,4 +386,10 @@ a {
 #preview-image {
     width: 140px;
     
+}
+
+
+.password-note{
+    color: #ff0000;
+    font-size: 12px;
 }
