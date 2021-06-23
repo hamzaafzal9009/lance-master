@@ -9,7 +9,7 @@
         </div>
         <div class="card-body row">
             <div class="col-md-8">
-                <form action={{ route('user.updateProfile', $user->id) }} method="post">
+                <form action={{ route('user.updateProfile', $user->id) }} method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="form-group row">
@@ -74,6 +74,68 @@
                                 <strong>Leave the password field empty if you don't want it to update password </strong>
                             </span>
                             @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="location"
+                            class="col-md-3 col-form-label text-md-right text-left text-dark">{{ __('Location') }}</label>
+
+                        <div class="col-md-8">
+                            @if($user->profile != null)
+                            <input id="location" type="location"
+                                class="form-control @error('location') is-invalid @enderror" name="location"
+                                value="{{ old('location') == '' ? ($user->profile->location != null ? $user->profile->location : '') : old('location') }}" required>
+                            @error('location')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="about"
+                            class="col-md-3 col-form-label text-md-right text-left text-dark">{{ __('About Yourself') }}</label>
+
+                        <div class="col-md-8">
+                            <textarea name="about" id="about" class="form-control" rows="3" required></textarea>
+                            @error('about')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="profileImage"
+                            class="col-md-3 col-form-label text-md-right text-left text-dark">{{ __('Profile Image') }}</label>
+
+                        <div class="col-md-8">
+                            <img src="" alt="..." class="img-thumnail d-block" />
+                            <input type="file" name="profileImage" id="profileImage"/>
+                            @error('profileImage')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="cover"
+                            class="col-md-3 col-form-label text-md-right text-left text-dark">{{ __('Cover Image') }}</label>
+
+                        <div class="col-md-8">
+                            <img src="" alt="..." class="img-thumnail d-block" />
+                            <input type="file" name="cover" id="cover"/>
+                            @error('cover')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

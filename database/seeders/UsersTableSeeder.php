@@ -28,6 +28,7 @@ class UsersTableSeeder extends Seeder
             'email'     => 'admin@admin.com',
             'password'  => Hash::make('admin'),
             'is_active' => 1,
+            'verified' => 1,
             'user_type' => 'admin'
         ]);
 
@@ -36,6 +37,7 @@ class UsersTableSeeder extends Seeder
             'email'     => 'user@user.com',
             'password'  => Hash::make('user'),
             'is_active' => 1,
+            'verified' => 1,
             'user_type' => 'business_user'
         ]);
 

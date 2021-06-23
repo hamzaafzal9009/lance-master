@@ -16,11 +16,18 @@
     <style>
         .main-container {
             width: 95%;
-            margin: auto
+            margin: auto;
+            margin-top: 75px
+        }
+        
+
+        .cover{
+            width:100%;
+            height: 350px;
         }
 
+
     </style>
-    @yield('styles')
 
 </head>
 
@@ -115,6 +122,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     <script>
+    $(document).ready(function(){
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+            $(".active-tab span").html(activeTab);
+            $(".previous-tab span").html(previousTab);
+        });
+    });
+
+
         var dd_main = document.querySelector(".dd_main");
 
         dd_main.addEventListener("click", function() {

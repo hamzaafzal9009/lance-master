@@ -25,8 +25,14 @@ Auth::routes();
 // Protected Route
 Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
 
+
+    // Front Routes
     Route::get('/home', [App\Http\Controllers\Front\MainController::class, 'index'])->name('home');
 
+    // Channel Routes
+    Route::get('/channel/{id}', [App\Http\Controllers\Front\ChannelController::class, 'index'])->name('channel.index');
+
+    // Admin Routes
     Route::prefix('admin')->middleware('can:isAdmin')->group(function () {
         Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home');
         Route::get('/usermanagement', [App\Http\Controllers\UserManagementController::class, 'allUser'])->name("allUsers");
@@ -42,6 +48,7 @@ Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
 
     });
 
+    //User Routes
     Route::prefix('user')->group(function () {
         Route::get('/profile/{id}', [App\Http\Controllers\Front\UserController::class, 'index'])->name('user.profile');
         Route::get('/edit-profile/{id}', [App\Http\Controllers\Front\UserController::class, 'editProfile'])->name('user.editProfile');

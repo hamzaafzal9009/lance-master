@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="video-details">
                                     <div class="channel">
-                                        <a href="" class="color-white">
+                                        <a href="{{ route('channel.index', $video->user->id) }}" class="color-white">
                                             <span class="text-capitalize">{{ $video->user->name }}</span> Channel
                                         </a>
                                     </div>
