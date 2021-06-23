@@ -25,12 +25,14 @@ Auth::routes();
 // Protected Route
 Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
 
-
     // Front Routes
     Route::get('/home', [App\Http\Controllers\Front\MainController::class, 'index'])->name('home');
-
+    Route::get('/video/{id}', [App\Http\Controllers\Front\MainController::class, 'playVideo'])->name('video.play');
     // Channel Routes
     Route::get('/channel/{id}', [App\Http\Controllers\Front\ChannelController::class, 'index'])->name('channel.index');
+    Route::get('/subscribe/{id}', [App\Http\Controllers\Front\ChannelController::class, 'subscribe'])->name('channel.subscribe');
+    Route::get('/unsubscribe/{subscriberId}/{accountID}', [App\Http\Controllers\Front\ChannelController::class, 'unsubscribe'])->name('channel.unsubscribe');
+    Route::get('/playlist/{id}', [App\Http\Controllers\Front\ChannelController::class, 'playlist'])->name('channel.playlist');
 
     // Admin Routes
     Route::prefix('admin')->middleware('can:isAdmin')->group(function () {

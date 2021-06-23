@@ -12,16 +12,26 @@
         <div class="dashContent">
             <div class="box1">
                 <div>
-                    <img src="{{ asset('assets/front/images/user1.png') }}" alt="User profile picture">
+                    @if ($user->profile->profile_image != null)
+
+                        <img src="{{ asset($user->profile->profile_image) }}" alt="User profile picture">
+                    @else
+                        <img src="{{ asset('assets/front/images/user1.png') }}" alt="..." srcset="">
+                    @endif
                 </div>
                 <div>
                     <p class="boxLight">
                     <ul class="list">
-                        <li>20<br>
+                        <li>
+                            {{ sizeof($user->subscribedTo) }}
+                            <br>
                             Following
                         </li>
-                        <li>30<br>
-                            Followers</li>
+                        <li>
+                            {{ sizeof($user->subscribers) }}
+                            <br>
+                            Followers
+                        </li>
                     </ul>
                     </p>
                 </div>
@@ -45,6 +55,11 @@
                             <p><strong>Contact : </strong></p>
                             <p>{{ $user->phone_number }}</p>
                         </div>
+                        <div class="d-flex justify-content-around">
+                            <p><strong>Location : </strong></p>
+                            <p>{{ $user->profile->location }}</p>
+                        </div>
+
                     </div>
 
                 </div>

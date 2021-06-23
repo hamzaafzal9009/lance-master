@@ -3,32 +3,137 @@
 
 @section('content')
 
-<div class="cover"></div>
-<div class="tabs">
-    <ul id="myTab" class="nav nav-tabs">
-        <li class="nav-item">
-            <a href="#home" class="nav-link active" data-toggle="tab">Videos</a>
-        </li>
-        <li class="nav-item">
-            <a href="#profile" class="nav-link" data-toggle="tab">Playlists</a>
-        </li>
-        <li class="nav-item">
-            <a href="#messages" class="nav-link" data-toggle="tab">About</a>
-        </li>
-    </ul>
-    <div class="tab-content">
-        <div class="tab-pane fade show active" id="home">
-            <h4 class="mt-2">Home tab content</h4>
-            <p>Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui. Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth.</p>
-        </div>
-        <div class="tab-pane fade" id="profile">
-            <h4 class="mt-2">Profile tab content</h4>
-            <p>Vestibulum nec erat eu nulla rhoncus fringilla ut non neque. Vivamus nibh urna, ornare id gravida ut, mollis a magna. Aliquam porttitor condimentum nisi, eu viverra ipsum porta ut. Nam hendrerit bibendum turpis, sed molestie mi fermentum id. Aenean volutpat velit sem. Sed consequat ante in rutrum convallis. Nunc facilisis leo at faucibus adipiscing.</p>
-        </div>
-        <div class="tab-pane fade" id="messages">
-            <h4 class="mt-2">Messages tab content</h4>
-            <p>Donec vel placerat quam, ut euismod risus. Sed a mi suscipit, elementum sem a, hendrerit velit. Donec at erat magna. Sed dignissim orci nec eleifend egestas. Donec eget mi consequat massa vestibulum laoreet. Mauris et ultrices nulla, malesuada volutpat ante. Fusce ut orci lorem. Donec molestie libero in tempus imperdiet. Cum sociis natoque penatibus et magnis.</p>
+    <div class="cover">
+        @if ($user->profile == null)
+
+            <img src="{{ asset('assets/images/cover.jpg') }}" alt="...">
+        @else
+
+            <img src="{{ asset($user->profile->cover_image) }}" alt="...">
+        @endif
+    </div>
+    <div class="user-details">
+        <div class="container">
+            <div class="d-flex justify-content-between">
+                <div class="d-flex">
+                    @if ($user->profile == null)
+                        <img src="{{ asset('assets/images/avatar-1.jpg') }}" alt="..." class="profile-image">
+                    @else
+                        <img src="{{ asset($user->profile->profile_image) }}" alt="..." class="profile-image">
+                    @endif
+
+                    <div class="align-self-center px-3">
+                        <h4>{{ $user->name }}</h4>
+                        <p>{{ sizeof($user->subscribers) }} Subscribers</p>
+                    </div>
+                </div>
+
+                {{-- {{ $user->subscribers[0]->pivot->subscriber_id }} --}}
+                @php
+                    $subscribe = false;
+                @endphp
+                @foreach ($user->subscribers as $item)
+                    @if ($item->pivot->subscriber_id == auth()->id())
+                        @php
+                            $subscribe = true;
+                        @endphp
+                        <a href="{{ route('channel.unsubscribe', [$item->pivot->subscriber_id, $item->pivot->account_id]) }}"
+                            class="align-self-center btn btn-danger">Unsubscribe</a>
+                    @endif
+                @endforeach
+                @if (!$subscribe)
+                    <a href="{{ route('channel.subscribe', $user->id) }}"
+                        class="align-self-center btn btn-primary">Subscribe</a>
+                @endif
+            </div>
         </div>
     </div>
-</div>
+
+    <div class="videos mt-3">
+        <div class="container">
+            <div class="tabs">
+                <ul id="myTab" class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link active" data-toggle="tab">Videos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#playlist" class="nav-link" data-toggle="tab">Playlists</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link" data-toggle="tab">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="home">
+            <div class="container">
+                <div class="row">
+
+                    @foreach ($user->videos as $item)
+                        <div class="col-md-3">
+                            <div class="d-flex flex-column">
+                                <img src="{{ asset($item->thumbnail) }}" data-href="{{ URL::to('/video', $item->id) }}"
+                                    class="video-list clickable" />
+                                <div class="d-flex justify-content-between">
+                                    <p>{{ sizeof($item->views) }} views</p>
+                                    <p>{{ $item->created_at }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+
+                </div>
+            </div>
+
+        </div>
+        <div class="tab-pane fade" id="playlist">
+            <div class="container">
+                <div class="d-flex justify-content-between">
+                    <h4 class="mt-2 text-left">Playlists</h4>
+                    <a href="" class="btn btn-primary">Create Playlist</a>
+                </div>
+
+                @if (sizeof($user->playlists) < 1)
+                    <h4 class="my-5">No Playlist Found</h4>
+                @else
+                    <div class="row">
+                        @foreach ($user->playlists as $playlist)
+                            <div class="card">
+                                <div class="card-body p-5">
+                                    <div class="text-center">
+                                        <a href="{{ route('channel.playlist', $playlist->id) }}">{{ $playlist->playlist_name }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        </div>
+        <div class="tab-pane fade" id="about">
+            <div class="container">
+                <div class="d-flex flex-column">
+                    <h4 class="text-left mt-3">About: </h4>
+                    <div style="min-height: 150px" class="mt-3">
+                        <p class="text-left">
+                            {{ $user->profile->about }}
+                        </p>
+                    </div>
+
+                    <h4 class="text-left mt-3">Location: </h4>
+                    <div style="min-height: 50px" class="mt-3">
+                        <p class="text-left">
+                            {{ $user->profile->location }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 @endsection

@@ -55,9 +55,14 @@
                             </select>
                         </div>
                     </div>
-                    <div class="w-100 mt-4">
+                    <div class="w-49 mt-4">
                         <label for="tags">Video Tags <sub class="red">Please separate tags with ,</sub></label>
                         <input type="text" name="video_tags" id="tags" class="form-control" placeholder="Video Title">
+                    </div>
+
+                    <div class="w-49 mt-4">
+                        <label for="tags">Thumbnail</label>
+                        <input type="file" name="thumbnail" class="d-block" required>
                     </div>
 
                     <div class="w-49 mt-4">

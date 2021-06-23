@@ -14,4 +14,11 @@ class MainController extends Controller
         // return $recommendedVideos;
         return view('front.index', compact(['user', 'recommendedVideos']));
     }
+
+    public function playVideo($id)
+    {
+        // return $id;
+        $video = VideoContent::find($id);
+        return view('front.play', compact(['video']));
+    }
 }

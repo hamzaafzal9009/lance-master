@@ -86,16 +86,22 @@
                             class="col-md-3 col-form-label text-md-right text-left text-dark">{{ __('Location') }}</label>
 
                         <div class="col-md-8">
-                            @if($user->profile != null)
-                            <input id="location" type="location"
-                                class="form-control @error('location') is-invalid @enderror" name="location"
-                                value="{{ old('location') == '' ? ($user->profile->location != null ? $user->profile->location : '') : old('location') }}" required>
+                            @if ($user->profile != null)
+                                <input id="location" type="location"
+                                    class="form-control @error('location') is-invalid @enderror" name="location"
+                                    value="{{ old('location') == '' ? ($user->profile->location != null ? $user->profile->location : '') : old('location') }}"
+                                    required>
+
+                            @else
+                                <input id="location" type="location"
+                                    class="form-control @error('location') is-invalid @enderror" name="location"
+                                    value="{{ old('location') == '' ? '' : old('location') }}" required>
+                            @endif
                             @error('location')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            @endif
                         </div>
                     </div>
 
@@ -104,7 +110,13 @@
                             class="col-md-3 col-form-label text-md-right text-left text-dark">{{ __('About Yourself') }}</label>
 
                         <div class="col-md-8">
-                            <textarea name="about" id="about" class="form-control" rows="3" required></textarea>
+                            @if ($user->profile != null)
+                                <textarea name="about" id="about" class="form-control" rows="3"
+                                    required>{{ old('about') == '' ? ($user->profile->about != null ? $user->profile->about : '') : old('about') }}</textarea>
+                            @else
+                                <textarea name="about" id="about" class="form-control" rows="3"
+                                    required>{{ old('about') == '' ? '' : old('about') }}</textarea>
+                            @endif
                             @error('about')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -118,8 +130,7 @@
                             class="col-md-3 col-form-label text-md-right text-left text-dark">{{ __('Profile Image') }}</label>
 
                         <div class="col-md-8">
-                            <img src="" alt="..." class="img-thumnail d-block" />
-                            <input type="file" name="profileImage" id="profileImage"/>
+                            <input type="file" name="profileImage" id="profileImage" />
                             @error('profileImage')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -133,8 +144,7 @@
                             class="col-md-3 col-form-label text-md-right text-left text-dark">{{ __('Cover Image') }}</label>
 
                         <div class="col-md-8">
-                            <img src="" alt="..." class="img-thumnail d-block" />
-                            <input type="file" name="cover" id="cover"/>
+                            <input type="file" name="cover" id="cover" />
                             @error('cover')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

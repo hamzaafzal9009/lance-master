@@ -36,9 +36,11 @@
             @foreach ($recommendedVideos as $video)
                 <div>
                     <div class="boxImg">
-                        <video controls width='100%' id="recommendedVideoPlayer{{ $video->id }}" height='200px' onclick="playVideo(this.id);">
+                        <img src="{{ asset($video->thumbnail) }}" data-href="{{ URL::to('/video', $video->id) }}"
+                            class="video-list clickable" />
+                        {{-- <video controls width='100%' id="recommendedVideoPlayer{{ $video->id }}" height='200px' onclick="playVideo(this.id);">
                             <source src="{{ asset($video->video_path) }}">
-                        </video>
+                        </video> --}}
                         <div class="px-3">
                             <div class="title">
                                 <div>
@@ -61,7 +63,7 @@
                                 <div class="video-details">
                                     <div class="channel">
                                         <a href="{{ route('channel.index', $video->user->id) }}" class="color-white">
-                                            <span class="text-capitalize">{{ $video->user->name }}</span> Channel
+                                            <span class="text-capitalize">{{ $video->user->name }}</span>
                                         </a>
                                     </div>
                                 </div>

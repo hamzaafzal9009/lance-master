@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Playlist;
 use App\Models\User;
+use App\Models\UserProfle;
 use App\Models\VideoContent;
 use Illuminate\Http\Request;
 
@@ -27,14 +28,6 @@ class UserController extends Controller
 
     public function updateProfile(Request $request, $id)
     {
-        // return $request->all();
-        $this->validate($request, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            // 'password' => ['required', 'string', 'min:8'],
-            'phone_number' => ['string', 'max:50'],
-        ]);
-
         $user = User::find($id);
 
         $user->name = $request->name;
@@ -45,9 +38,72 @@ class UserController extends Controller
             $user->password = Hash::make($request->password);
         }
 
+        // dd($user);
+
         if ($user->save()) {
-            return redirect()->back()->with('success', "Successfully Updated");
+            // return $user;
+            $userProfile = UserProfle::where('u_id', $id)->first();
+            if ($userProfile == null) {
+
+                $profile = new UserProfle;
+                $profile->u_id = $id;
+                $profile->about = $request->about;
+                $profile->location = $request->location;
+
+                if ($request->hasFile('profileImage')) {
+                    $profileImage = $request->file('profileImage');
+                    $profileImageName = time() . '_' . $profileImage->getClientOriginalName();
+                    $profileImagePath = public_path() . '/uploads/profile-image/';
+                    $profileImage->move($profileImagePath, $profileImageName);
+
+                    $profile->profile_image = '/uploads/profile-image/' . $profileImageName;
+                }
+
+                if ($request->hasFile('cover')) {
+                    $coverImage = $request->file('cover');
+                    $coverImageName = time() . '_' . $coverImage->getClientOriginalName();
+                    $coverImagePath = public_path() . '/uploads/profile-cover/';
+                    $coverImage->move($coverImagePath, $coverImageName);
+
+                    $profile->cover_image = '/uploads/profile-cover/' . $coverImageName;
+                }
+
+                if ($profile->save()) {
+                    return redirect()->back()->with('success', "Successfully Updated");
+                } else {
+                    return "Unable to create Profile";
+                }
+            } else {
+                $userProfile->about = $request->about;
+                $userProfile->location = $request->location;
+
+                if ($request->hasFile('profileImage')) {
+                    $profileImage = $request->file('profileImage');
+                    $profileImageName = time() . '_' . $profileImage->getClientOriginalName();
+                    $profileImagePath = public_path() . '/uploads/profile-image/';
+                    $profileImage->move($profileImagePath, $profileImageName);
+
+                    $userProfile->profile_image = '/uploads/profile-image/' . $profileImageName;
+                }
+
+                if ($request->hasFile('cover')) {
+                    $coverImage = $request->file('cover');
+                    $coverImageName = time() . '_' . $coverImage->getClientOriginalName();
+                    $coverImagePath = public_path() . '/uploads/profile-cover/';
+                    $coverImage->move($coverImagePath, $coverImageName);
+
+                    $userProfile->cover_image = '/uploads/profile-cover/' . $coverImageName;
+                }
+
+                if ($userProfile->save()) {
+                    return redirect()->back()->with('success', "Successfully Updated");
+                } else {
+                    return "Something went wrong";
+                }
+            }
+
         }
+        return "error";
         // return redirect()->back()->with('error', "Unable to Update");
     }
 
@@ -78,6 +134,11 @@ class UserController extends Controller
         $videoPath = public_path() . '/uploads/videos/';
         $video->move($videoPath, $videoName);
 
+        $thumbnail = $request->file('thumbnail');
+        $thumbnailName = time() . '_' . $thumbnail->getClientOriginalName();
+        $thumbnailPath = public_path() . '/uploads/thumbnails/';
+        $thumbnail->move($thumbnailPath, $thumbnailName);
+
         $video_title = $request->video_title;
         $video_description = $request->video_description;
         $video_category = $request->video_category;
@@ -91,6 +152,7 @@ class UserController extends Controller
         $videoModel->description = $video_description;
         $videoModel->category_id = $video_category;
         $videoModel->video_path = '/uploads/videos/' . $videoName;
+        $videoModel->thumbnail = '/uploads/thumbnail/' . $videoName;
         $videoModel->videoname = $videoName;
         $videoModel->tags = $video_tags;
 

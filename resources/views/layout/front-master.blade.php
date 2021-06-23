@@ -19,13 +19,69 @@
             margin: auto;
             margin-top: 75px
         }
-        
 
-        .cover{
-            width:100%;
+
+        .cover {
+            width: 100%;
             height: 350px;
+            padding-bottom: 20px
         }
 
+        .cover img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%
+        }
+
+        .nav-link {
+            color: #fff;
+        }
+
+        .nav-link.active {
+            background-color: transparent !important;
+            border: none !important;
+            color: #fff;
+            border-bottom: 2px solid #fff !important;
+            margin-bottom: 15px
+        }
+
+        .nav-link:hover {
+            border: none !important;
+            border-bottom: 2px solid #fff !important
+        }
+
+        .tab-content {
+            background-color: #1b1b1b;
+            margin-bottom: 20px
+        }
+
+        .video-list {
+            width: 100% !important;
+            height: 175px !important;
+        }
+
+        .show {
+            background-color: transparent !important
+        }
+
+        .clickable {
+            cursor: pointer;
+        }
+
+        .video {
+            width: 100%;
+            min-height: 88vh;
+        }
+
+        .video video {
+            width: 100%;
+            min-height: 100% !important;
+        }
 
     </style>
 
@@ -122,20 +178,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     <script>
-    $(document).ready(function(){
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
-            $(".active-tab span").html(activeTab);
-            $(".previous-tab span").html(previousTab);
+        $(document).ready(function() {
+            $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                $(".active-tab span").html(activeTab);
+                $(".previous-tab span").html(previousTab);
+            });
         });
-    });
 
+        $(".video-list").click(function() {
+            window.location.href = $(this).data('href');
+        });
 
         var dd_main = document.querySelector(".dd_main");
 
         dd_main.addEventListener("click", function() {
             this.classList.toggle("active");
         })
-
     </script>
     <script>
         function playVideo(id) {
@@ -144,7 +202,6 @@
             });
 
         }
-
     </script>
 </body>
 
