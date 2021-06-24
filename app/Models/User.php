@@ -116,4 +116,8 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->two_factor_expires_at = null;
         $this->save();
     }
+
+    public function userVideo(){
+        return $this->belongsToMany('App\Models\VideoContent', 'u_id', 'id');
+    }
 }

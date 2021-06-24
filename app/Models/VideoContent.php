@@ -51,4 +51,13 @@ class VideoContent extends Model
     {
         return $this->belongsToMany('App\Models\Playlist', 'video_playlists', 'video_id', 'playlist_id', 'id');
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Models\Tags', 'video_tags', 'video_id', 'tag_id', 'id');
+    }
+
+    public function watchList(){
+        return $this->hasOne('App\Models\Category', 'category_id','id');
+    }
 }

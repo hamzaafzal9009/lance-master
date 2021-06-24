@@ -74,5 +74,96 @@
             @endforeach
         </div>
     </div>
+    <div class="playRow mt-4">
+    <br></br>
+        <div class="heading">
+            <h2>Watch List</h2>
+        </div>
+        <div class="playList">
+            @foreach ($watchListVideos as $video)
+                <div>
+                    <div class="boxImg">
+                        <video controls width='100%' id="recommendedVideoPlayer{{ $video->id }}" height='200px' onclick="playVideo(this.id);">
+                            <source src="{{ asset($video->video_path) }}">
+                        </video>
+                        <div class="px-3">
+                            <div class="title">
+                                <div>
+                                    {{ $video->title }}
+                                    <p class="float-right">
+                                        @if (isset($video->views))
+                                                {{ $video->views->total_views }} Views
+                                        @else
+                                            0 Views
+                                        @endif
+                                    </p>
+                                    <p><h5 style="color:grey;font-size:10px;">Uploaded on 
+                                    {{ date('d-M-Y', strtotime($video->created_at)) }} 
+                                    </h6></p>
+                                </div>
+                            </div>
+                            <div class="details">
+                                <div class="profile-pic">
+                                    <img src="{{ asset('assets/front/images/dummy.jpg') }}" alt="">
+                                </div>
+                                <div class="video-details">
+                                    <div class="channel">
+                                        <a href="" class="color-white">
+                                            <span class="text-capitalize">{{ $video->user->name }}</span> Channel
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+    <div class="playRow mt-4">
+        <div class="heading">
+            <h2>Watch History</h2>
+        </div>
+        <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+        @foreach ($watchedHistory as $video)
+            <div class="playList">
+                <div>
+                    <div class="boxImg">
+                        <video controls width='100%' class="watched-videos" id="{{$video->v_id}}" data-id="{{ $video->v_id }}" height='200px'>
+                            <source src="{{ asset($video->video_path) }}">
+                        </video>
+                        <div class="px-3">
+                            <div class="title">
+                                <div>
+                                    {{ $video->title }}
+                                    <p class="float-right">
+                                        @if (isset($video->view))
+                                            @if (sizeof($video->view) > 0)
+                                                {{ $video->views->total_views }} Views
+                                            @endif
+                                        @else
+                                            0 Views
+                                        @endif
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="details">
+                                <div class="profile-pic">
+                                    <img src="{{ asset('assets/front/images/dummy.jpg') }}" alt="">
+                                </div>
+                                <div class="video-details">
+                                    <div class="channel">
+                                        <a href="" class="color-white">
+                                            <span class="text-capitalize">{{ $video->userHistory->name }}</span> Channel
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
 
 @endsection
