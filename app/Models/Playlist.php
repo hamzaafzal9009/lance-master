@@ -13,4 +13,9 @@ class Playlist extends Model
     {
         return $this->belongsTo('App\Models\User', 'u_id', 'id');
     }
+
+    public function videos()
+    {
+        return $this->belongsToMany('App\Models\VideoContent', 'video_playlists', 'video_id', 'playlist_id', 'id');
+    }
 }

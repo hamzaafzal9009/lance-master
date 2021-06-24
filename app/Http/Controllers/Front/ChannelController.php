@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Playlist;
 use App\Models\Subscriber;
 use App\Models\User;
-use App\Models\Playlist;
+use App\Models\VideoContent;
+use Illuminate\Http\Request;
 
 class ChannelController extends Controller
 {
@@ -38,6 +40,42 @@ class ChannelController extends Controller
 
     public function playlist($id)
     {
-        $playlist = Playlist::with('videos')->get();
+        $playlist = Playlist::with('videos')->find($id);
+        // return $playlist;
+
+        return view('front.playlist', compact(['playlist']));
+    }
+
+    public function createPlaylist($id)
+    {
+
+        $user = User::find($id);
+        return view('front.create-playlist', compact(['user']));
+    }
+
+    public function storePlaylist(Request $request, $id)
+    {
+        // return $requset->all();
+        $playlist = new Playlist;
+        $playlist->u_id = $id;
+        $playlist->playlist_name = $request->playlist_name;
+        $playlist->save();
+
+        return redirect()->back()->with('success', 'Playlist created successfully');
+    }
+
+    public function assignVideoToPlaylistView($id)
+    {
+        $playlist = Playlist::find($id);
+        $videos = VideoContent::where('u_id', auth()->id())->with('playlists')->get();
+        return view('front.assign-video', compact(['playlist', 'videos']));
+    }
+
+    public function assignVideoToPlaylist(Request $request, $id)
+    {
+        $playlist = Playlist::find($id);
+        $playlist->videos()->attach($request->videos);
+        return redirect()->back()->with('success', 'Videos assigned successfully');
+        // return $requset->all();
     }
 }

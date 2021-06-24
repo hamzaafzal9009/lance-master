@@ -33,6 +33,10 @@ Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
     Route::get('/subscribe/{id}', [App\Http\Controllers\Front\ChannelController::class, 'subscribe'])->name('channel.subscribe');
     Route::get('/unsubscribe/{subscriberId}/{accountID}', [App\Http\Controllers\Front\ChannelController::class, 'unsubscribe'])->name('channel.unsubscribe');
     Route::get('/playlist/{id}', [App\Http\Controllers\Front\ChannelController::class, 'playlist'])->name('channel.playlist');
+    Route::get('/create-playlist/{id}', [App\Http\Controllers\Front\ChannelController::class, 'createPlaylist'])->name('channel.createPlaylist');
+    Route::post('/create-playlist/{id}', [App\Http\Controllers\Front\ChannelController::class, 'storePlaylist'])->name('channel.storePlaylist');
+    Route::get('/assign-video-playlist/{playlist_id}', [App\Http\Controllers\Front\ChannelController::class, 'assignVideoToPlaylistView'])->name('channel.assignVideoToPlaylistView');
+    Route::post('/assign-video-playlist/{playlist_id}', [App\Http\Controllers\Front\ChannelController::class, 'assignVideoToPlaylist'])->name('channel.assignVideoToPlaylist');
 
     // Admin Routes
     Route::prefix('admin')->middleware('can:isAdmin')->group(function () {

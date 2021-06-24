@@ -94,7 +94,8 @@
             <div class="container">
                 <div class="d-flex justify-content-between">
                     <h4 class="mt-2 text-left">Playlists</h4>
-                    <a href="" class="btn btn-primary">Create Playlist</a>
+                    <a href="{{ route('channel.createPlaylist', $user->id) }}" class="btn btn-primary">Create
+                        Playlist</a>
                 </div>
 
                 @if (sizeof($user->playlists) < 1)
@@ -102,12 +103,16 @@
                 @else
                     <div class="row">
                         @foreach ($user->playlists as $playlist)
-                            <div class="card">
-                                <div class="card-body p-5">
-                                    <div class="text-center">
-                                        <a href="{{ route('channel.playlist', $playlist->id) }}">{{ $playlist->playlist_name }}</a>
+                            <div class="col-md-3 my-4">
+                                <a href="{{ route('channel.playlist', $playlist->id) }}">
+                                    <div class="card">
+                                        <div class="card-body p-5">
+                                            <div class="text-center text-dark">
+                                                {{ $playlist->playlist_name }}
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         @endforeach
                     </div>
