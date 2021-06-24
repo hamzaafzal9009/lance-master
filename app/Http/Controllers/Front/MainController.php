@@ -33,8 +33,22 @@ class MainController extends Controller
     {
         $userID = auth()->id();
         $user = User::with('notifications')->find(auth()->id());
-        
+
         // return $user->notifications[0]->notification_by_id;
         return view('front.notifications', compact(['user']));
     }
+
+    // public function test()
+    // {
+
+    //     $user = User::with('subscribers')->find(auth()->id());
+        
+    //     foreach ($user->subscribers as $subscriber) {
+    //         $notification = new Notifies();
+    //         $notification->notification_by_id = $user->id;
+    //         $notification->notification_to_id = $subscriber->id;
+    //         $notification->message = $user->name  . ' has posted a new video';
+    //         $notification->save();
+    //     }
+    // }
 }

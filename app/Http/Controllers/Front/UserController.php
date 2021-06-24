@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Notifies;
 use App\Models\Playlist;
 use App\Models\User;
 use App\Models\UserProfle;
@@ -161,6 +162,17 @@ class UserController extends Controller
         if ($playList == 'yes') {
             $videoModel->playlists()->attach($video_playlist);
         }
+
+        $user = User::with('subscribers')->find(auth()->id());
+
+        foreach ($user->subscribers as $subscriber) {
+            $notification = new Notifies();
+            $notification->notification_by_id = $user->id;
+            $notification->notification_to_id = $subscriber->id;
+            $notification->message = $user->name . ' has posted a new video named ' . $video_title;
+            $notification->save();
+        }
+
         return redirect()->back()->with('success', "Video Uploaded Successful");
 
     }

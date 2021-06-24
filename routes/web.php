@@ -25,6 +25,7 @@ Auth::routes();
 // Protected Route
 Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
 
+    // Route::get('/test', [App\Http\Controllers\Front\MainController::class, 'test']);
     // Front Routes
     Route::get('/home', [App\Http\Controllers\Front\MainController::class, 'index'])->name('home');
     Route::get('/video/{id}', [App\Http\Controllers\Front\MainController::class, 'playVideo'])->name('video.play');
