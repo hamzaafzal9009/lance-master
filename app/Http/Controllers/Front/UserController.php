@@ -221,4 +221,5 @@ class UserController extends Controller
         $video->delete();
         return redirect()->back();
     }
+
 }

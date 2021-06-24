@@ -83,8 +83,34 @@
             min-height: 100% !important;
         }
 
+        .dropdown-menu.show {
+            background-color: #1b1b1b !important;
+            right: 0
+        }
+
+        .dropdown-item {
+            color: #fff !important;
+
+        }
+
+        .dropdown-item:focus,
+        .dropdown-item:hover {
+            background-color: transparent;
+            text-decoration: underline
+        }
+
     </style>
 
+
+    <script>
+        window.Laravel = @php echo json_encode(['csrfToken' => csrf_token()]); @endphp
+    </script>
+
+    @if (!auth()->guest())
+        <script>
+            window.Laravel.userId = <?php echo auth()->user()->id; ?>
+        </script>
+    @endif
 </head>
 
 <body>
@@ -144,16 +170,23 @@
                                 </div>
                             </div>
                         </li>
-
                     </ul>
                 </div>
                 <div class="account d-flex ml-4 mr-4">
                     <a href="#">
                         <i class="fas fa-video"></i>
                     </a>
-                    <a href="./notification.html">
+                    <div class="dropdown">
+
+                        <i class="fas fa-bell dropdown-toggl" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false"></i>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li class="dropdown-item text-light">No Notification Found</li>
+                        </ul>
+                    </div>
+                    {{-- <a href="./notification.html">
                         <i class="fas fa-bell"></i>
-                    </a>
+                    </a> --}}
                     <a href="chatpage.php">
                         <i class="fas fa-comment"></i>
                     </a>
@@ -164,6 +197,8 @@
     <div class="main-container">
         @yield('content')
     </div>
+
+
 
     <script src="https://kit.fontawesome.com/74d240b4ae.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

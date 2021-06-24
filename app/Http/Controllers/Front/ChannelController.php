@@ -7,6 +7,7 @@ use App\Models\Playlist;
 use App\Models\Subscriber;
 use App\Models\User;
 use App\Models\VideoContent;
+use App\Notifications\UserFollowed;
 use Illuminate\Http\Request;
 
 class ChannelController extends Controller
@@ -26,6 +27,9 @@ class ChannelController extends Controller
         $subscriber->subscriber_id = auth()->id();
         $subscriber->account_id = $id;
         if ($subscriber->save()) {
+            $user = User::find($id);
+            $user->notify(new UserFollowed);
+
             return redirect()->back()->with('success', 'Subscribed');
         }
 

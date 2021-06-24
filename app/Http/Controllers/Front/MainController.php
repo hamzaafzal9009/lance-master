@@ -21,4 +21,9 @@ class MainController extends Controller
         $video = VideoContent::find($id);
         return view('front.play', compact(['video']));
     }
+
+    public function notifications()
+    {
+        return auth()->user()->unreadNotifications()->limit(5)->get()->toArray();
+    }
 }

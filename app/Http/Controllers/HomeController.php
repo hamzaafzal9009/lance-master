@@ -27,4 +27,10 @@ class HomeController extends Controller
         return view('dashboard');
 
     }
+
+
+    // public function fow(Type $var = null)
+    // {
+    //     # code...
+    // }
 }
