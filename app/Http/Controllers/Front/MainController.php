@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notifies;
+use App\Models\User;
 use App\Models\VideoContent;
 
 class MainController extends Controller
@@ -25,5 +27,14 @@ class MainController extends Controller
     public function notifications()
     {
         return auth()->user()->unreadNotifications()->limit(5)->get()->toArray();
+    }
+
+    public function notifies()
+    {
+        $userID = auth()->id();
+        $user = User::with('notifications')->find(auth()->id());
+        
+        // return $user->notifications[0]->notification_by_id;
+        return view('front.notifications', compact(['user']));
     }
 }

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notifies;
 use App\Models\Playlist;
 use App\Models\Subscriber;
 use App\Models\User;
 use App\Models\VideoContent;
-use App\Notifications\UserFollowed;
 use Illuminate\Http\Request;
 
 class ChannelController extends Controller
@@ -27,8 +27,14 @@ class ChannelController extends Controller
         $subscriber->subscriber_id = auth()->id();
         $subscriber->account_id = $id;
         if ($subscriber->save()) {
-            $user = User::find($id);
-            $user->notify(new UserFollowed);
+
+            $notification = new Notifies;
+            $notification->notification_by_id = auth()->id();
+            $notification->notification_to_id = $id;
+            $notification->message = auth()->user()->name . 'has started following you';
+            $notification->save();
+
+            // $user->notify(new UserFollowed(auth()->user()));
 
             return redirect()->back()->with('success', 'Subscribed');
         }

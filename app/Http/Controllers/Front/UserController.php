@@ -152,7 +152,7 @@ class UserController extends Controller
         $videoModel->description = $video_description;
         $videoModel->category_id = $video_category;
         $videoModel->video_path = '/uploads/videos/' . $videoName;
-        $videoModel->thumbnail = '/uploads/thumbnail/' . $videoName;
+        $videoModel->thumbnail = '/uploads/thumbnail/' . $thumbnailName;
         $videoModel->videoname = $videoName;
         $videoModel->tags = $video_tags;
 

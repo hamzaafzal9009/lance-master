@@ -12,7 +12,7 @@
         <div class="dashContent">
             <div class="box1">
                 <div>
-                    @if ($user->profile->profile_image != null)
+                    @if ($user->profile != null)
 
                         <img src="{{ asset($user->profile->profile_image) }}" alt="User profile picture">
                     @else
@@ -55,10 +55,13 @@
                             <p><strong>Contact : </strong></p>
                             <p>{{ $user->phone_number }}</p>
                         </div>
-                        <div class="d-flex justify-content-around">
-                            <p><strong>Location : </strong></p>
-                            <p>{{ $user->profile->location }}</p>
-                        </div>
+                        @if ($user->profile != null)
+
+                            <div class="d-flex justify-content-around">
+                                <p><strong>Location : </strong></p>
+                                <p>{{ $user->profile->location }}</p>
+                            </div>
+                        @endif
 
                     </div>
 

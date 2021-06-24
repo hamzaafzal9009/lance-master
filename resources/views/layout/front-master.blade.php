@@ -8,11 +8,13 @@
     <title>@yield('title')</title>
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
+
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/front/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/front/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/front/css/notification.css') }}">
     <style>
         .main-container {
             width: 95%;
@@ -127,7 +129,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.php">Home</a>
+                    <a class="nav-link" href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./live.html">Live</a>
@@ -176,17 +178,9 @@
                     <a href="#">
                         <i class="fas fa-video"></i>
                     </a>
-                    <div class="dropdown">
-
-                        <i class="fas fa-bell dropdown-toggl" id="dropdownMenuButton" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false"></i>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li class="dropdown-item text-light">No Notification Found</li>
-                        </ul>
-                    </div>
-                    {{-- <a href="./notification.html">
+                    <a href="{{ route('page.notifications') }}">
                         <i class="fas fa-bell"></i>
-                    </a> --}}
+                    </a>
                     <a href="chatpage.php">
                         <i class="fas fa-comment"></i>
                     </a>
@@ -197,8 +191,6 @@
     <div class="main-container">
         @yield('content')
     </div>
-
-
 
     <script src="https://kit.fontawesome.com/74d240b4ae.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -212,6 +204,7 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
     <script>
         $(document).ready(function() {
             $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {

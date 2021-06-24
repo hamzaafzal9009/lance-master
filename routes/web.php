@@ -27,8 +27,11 @@ Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
 
     // Front Routes
     Route::get('/home', [App\Http\Controllers\Front\MainController::class, 'index'])->name('home');
-    Route::get('/notifications', [App\Http\Controllers\Front\MainController::class, 'notifications'])->name('notifications');
     Route::get('/video/{id}', [App\Http\Controllers\Front\MainController::class, 'playVideo'])->name('video.play');
+    // Notifications
+    Route::get('/notifications', [App\Http\Controllers\Front\MainController::class, 'notifications'])->name('notifications');
+    Route::get('/notifies', [App\Http\Controllers\Front\MainController::class, 'notifies'])->name('page.notifications');
+    
     // Channel Routes
     Route::get('/channel/{id}', [App\Http\Controllers\Front\ChannelController::class, 'index'])->name('channel.index');
     Route::get('/subscribe/{id}', [App\Http\Controllers\Front\ChannelController::class, 'subscribe'])->name('channel.subscribe');
@@ -38,6 +41,8 @@ Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
     Route::post('/create-playlist/{id}', [App\Http\Controllers\Front\ChannelController::class, 'storePlaylist'])->name('channel.storePlaylist');
     Route::get('/assign-video-playlist/{playlist_id}', [App\Http\Controllers\Front\ChannelController::class, 'assignVideoToPlaylistView'])->name('channel.assignVideoToPlaylistView');
     Route::post('/assign-video-playlist/{playlist_id}', [App\Http\Controllers\Front\ChannelController::class, 'assignVideoToPlaylist'])->name('channel.assignVideoToPlaylist');
+
+    
 
     // Admin Routes
     Route::prefix('admin')->middleware('can:isAdmin')->group(function () {

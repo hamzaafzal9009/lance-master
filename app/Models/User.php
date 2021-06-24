@@ -55,9 +55,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function profile()
     {
-        return $this->hasOne('App\Models\UserProfle', 'u_id', 'id');    
+        return $this->hasOne('App\Models\UserProfle', 'u_id', 'id');
     }
-
 
     public function roles()
     {
@@ -84,6 +83,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Models\Playlist', 'u_id', 'id');
     }
 
+    public function notifications()
+    {
+        return $this->hasMany('App\Models\Notifies', 'notification_to_id', 'id');
+    }
+
     public function verifyUser()
     {
         return $this->hasOne('App\Models\VerifyUser');
@@ -94,12 +98,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany('App\Models\User', 'subscribers', 'account_id', 'subscriber_id', 'id');
     }
 
-    
     public function subscribedTo()
     {
         return $this->belongsToMany('App\Models\User', 'subscribers', 'subscriber_id', 'account_id', 'id');
     }
-
 
     public function generateTwoFactorCode()
     {

@@ -124,16 +124,20 @@
                 <div class="d-flex flex-column">
                     <h4 class="text-left mt-3">About: </h4>
                     <div style="min-height: 150px" class="mt-3">
-                        <p class="text-left">
-                            {{ $user->profile->about }}
-                        </p>
+                        @if ($user->profile != null)
+                            <p class="text-left">
+                                {{ $user->profile->about }}
+                            </p>
+                        @endif
                     </div>
 
                     <h4 class="text-left mt-3">Location: </h4>
                     <div style="min-height: 50px" class="mt-3">
-                        <p class="text-left">
-                            {{ $user->profile->location }}
-                        </p>
+                        @if ($user->profile != null)
+                            <p class="text-left">
+                                {{ $user->profile->location }}
+                            </p>
+                        @endif
                     </div>
                 </div>
             </div>
