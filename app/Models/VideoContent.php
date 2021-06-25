@@ -52,5 +52,10 @@ class VideoContent extends Model
         return $this->belongsToMany('App\Models\Playlist', 'video_playlists', 'video_id', 'playlist_id', 'id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\Models\Comment','video_id', 'id')->whereNull('parent_id');
+    }
+
     
 }

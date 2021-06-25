@@ -19,7 +19,6 @@ class MainController extends Controller
 
     public function playVideo($id)
     {
-        // return $id;
         $video = VideoContent::find($id);
         return view('front.play', compact(['video']));
     }
@@ -38,13 +37,11 @@ class MainController extends Controller
         return view('front.notifications', compact(['user']));
     }
 
-    
-
     // public function test()
     // {
 
     //     $user = User::with('subscribers')->find(auth()->id());
-        
+
     //     foreach ($user->subscribers as $subscriber) {
     //         $notification = new Notifies();
     //         $notification->notification_by_id = $user->id;
