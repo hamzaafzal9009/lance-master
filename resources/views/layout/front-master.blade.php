@@ -58,7 +58,7 @@
         }
 
         .tab-content {
-            background-color: #1b1b1b;
+            /* background-color: #1b1b1b; */
             margin-bottom: 20px
         }
 
@@ -73,16 +73,11 @@
 
         .clickable {
             cursor: pointer;
-        }
-
-        .video {
-            width: 100%;
-            min-height: 88vh;
-        }
+        }   
 
         .video video {
             width: 100%;
-            min-height: 100% !important;
+            height: 500px;
         }
 
         .dropdown-menu.show {
