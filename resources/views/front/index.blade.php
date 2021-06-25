@@ -36,6 +36,14 @@
             @foreach ($recommendedVideos as $video)
                 <div>
                     <div class="boxImg">
+                        @php 
+                            if($video->continueWatches->first()){
+                                $v_time = round($video->continueWatches->first()->time);
+                            }
+                            else{
+                                $v_time = 0;
+                            }
+                        @endphp
                         <img src="{{ asset($video->thumbnail) }}" data-href="{{ URL::to('/video', $video->id) }}"
                             class="video-list clickable" />
                         {{-- <video controls width='100%' id="recommendedVideoPlayer{{ $video->id }}" height='200px' onclick="playVideo(this.id);">

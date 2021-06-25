@@ -12,7 +12,7 @@ class MainController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $recommendedVideos = VideoContent::with(['views', 'user'])->inRandomOrder()->limit(8)->get();
+        $recommendedVideos = VideoContent::with(['views', 'user', 'continueWatches'])->inRandomOrder()->limit(8)->get();
         // return $recommendedVideos;
         return view('front.index', compact(['user', 'recommendedVideos']));
     }
@@ -20,7 +20,9 @@ class MainController extends Controller
     public function playVideo($id)
     {
         // return $id;
-        $video = VideoContent::find($id);
+        // $video = VideoContent::find($id);
+        $video = VideoContent::with(['continueWatches'])->where('id', $id)->get()->first();
+        // dd($video->continueWatches);
         return view('front.play', compact(['video']));
     }
 

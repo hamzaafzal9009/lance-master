@@ -29,7 +29,12 @@ class VideoContent extends Model
     }
     public function continueWatches()
     {
-        return $this->hasMany('App\Models\ContinueWatch');
+        $comments = $this->hasMany('App\Models\ContinueWatch', 'v_id', 'id')->latest();
+        // if($published) $comments->where('published', 1);
+
+        return $comments;
+        // return $this->hasMany('App\Models\ContinueWatch', 'v_id', 'id')
+        //     ->latest()->first();
     }
 
     public function views()

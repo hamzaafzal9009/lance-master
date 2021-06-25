@@ -76,4 +76,7 @@ Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
 
     Route::get('/form-upload', [App\Http\Controllers\VideoContentController::class, 'create'])->name('uploadform');
     Route::post('/form-upload', [App\Http\Controllers\VideoContentController::class, 'store'])->name('uploadform');
+
+    Route::get('/store/{video}', [App\Http\Controllers\ContinueWatchController::class, 'store'])->name('store');
+    Route::get('/getTime/{video}', [App\Http\Controllers\ContinueWatchController::class, 'create'])->name('getTime');//Route for getting the saved time
 });

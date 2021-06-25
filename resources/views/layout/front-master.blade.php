@@ -188,9 +188,7 @@
     </div>
 
     <script src="https://kit.fontawesome.com/74d240b4ae.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-    </script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
     </script>
@@ -219,12 +217,78 @@
         })
     </script>
     <script>
-        function playVideo(id) {
-            $(`#${id}`).click(function() {
-                this.paused ? this.play() : this.pause();
-            });
 
+        function syncWatchTime(videoId, currentTime){//pass video id to this function where you call it.
+            console.log(videoId);
+            console.log(currentTime);
+
+            var data = {time: currentTime}; //data to send to server 
+            var dataType = "json";//expected datatype from server 
+            var headers = { 'X-CSRF-TOKEN': $('input[name="_token"]').val()};
+            $.ajax({   
+                url: '/store/'+videoId,   //url of the server which stores time data   
+                data: data,
+                headers: headers,
+                dataType: dataType,
+                success: function(data,status){
+                        // alert(status);
+                        // var data = JSON.parse(data)
+                        // console.log(data['message']);
+                }   
+            });
         }
+
+        $(function() {
+
+            var elements = document.getElementsByClassName("recommended-videos");
+
+            var loadVideoFunction = function(vid_id, vid_time) {
+                var myvideo = document.getElementById(vid_id);
+                videoStartTime = vid_time;
+                myvideo.currentTime = videoStartTime;
+                myvideo.play();
+                myvideo.pause();
+            };
+
+            for (var i = 0; i < elements.length; i++) {
+                var vid_id = elements[i].getAttribute("id");
+                var vid_time = elements[i].getAttribute("data-time");
+                elements[i].addEventListener('loadedmetadata', loadVideoFunction(vid_id, vid_time), false);
+            }
+
+            document.querySelectorAll('.recommended-videos').forEach(item => {
+                item.addEventListener('play', event => {
+                    console.log('PLAY');
+                });
+
+                item.addEventListener('pause', event => {
+                    console.log('PAUSE');                
+                });
+
+                item.addEventListener('timeupdate', event => {
+                    let req_stat = item.currentTime % 3;
+                    if(req_stat <= 0.4){
+                        let vid_id = item.getAttribute("data-id");
+                        console.log(req_stat);
+                        syncWatchTime(vid_id, item.currentTime)
+                    }
+
+                });
+            })
+
+            function onPlayProgress(data) {
+                status.text(data.seconds + 's played');
+            }
+
+        });
+
+
+        // function playVideo(id) {
+        //     $(`#${id}`).click(function() {
+        //         this.paused ? this.play() : this.pause();
+        //     });
+
+        // }
     </script>
 </body>
 

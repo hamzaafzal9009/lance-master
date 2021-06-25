@@ -8,12 +8,27 @@
 
 
     <div class="video">
+        @php 
+        if($video->continueWatches->first()){
+            $v_time = round($video->continueWatches->first()->time);
+        }
+        else{
+            $v_time = 0;
+        }
+        @endphp
         <video autoplay controls id="{{ $video->id }}" onseeked="writeVideoTime(this.id,this.currentTime);"
-            onclick="writeVideoTime(this.id,this.currentTime);">
+            onclick="writeVideoTime(this.id,this.currentTime);"
+            class="recommended-videos" id="recommendedVideoPlayer{{ $video->id }}" data-id="{{ $video->id }}" data-time="{{ $v_time }}">
             <source src="{{ asset($video->video_path) }}" type="video/mp4">
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
             Your browser does not support the video tag.
         </video>
+        {{-- <video autoplay controls id="{{ $video->id }}" onseeked="writeVideoTime(this.id,this.currentTime);"
+            onclick="writeVideoTime(this.id,this.currentTime);">
+            <source src="{{ asset($video->video_path) }}" type="video/mp4">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+            Your browser does not support the video tag.
+        </video> --}}
     </div>
 
     <div class="user-details my-3">
