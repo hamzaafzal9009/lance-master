@@ -29,6 +29,8 @@ Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
     // Front Routes
     Route::get('/home', [App\Http\Controllers\Front\MainController::class, 'index'])->name('home');
     Route::get('/video/{id}', [App\Http\Controllers\Front\MainController::class, 'playVideo'])->name('video.play');
+    Route::post('/continueWatch', [App\Http\Controllers\VideoContentController::class, 'continueWatch'])->name('continueWatch');
+    
     // Notifications
     Route::get('/notifications', [App\Http\Controllers\Front\MainController::class, 'notifications'])->name('notifications');
     Route::get('/notifies', [App\Http\Controllers\Front\MainController::class, 'notifies'])->name('page.notifications');
@@ -76,4 +78,5 @@ Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
 
     Route::get('/form-upload', [App\Http\Controllers\VideoContentController::class, 'create'])->name('uploadform');
     Route::post('/form-upload', [App\Http\Controllers\VideoContentController::class, 'store'])->name('uploadform');
+   
 });

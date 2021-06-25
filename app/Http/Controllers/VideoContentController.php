@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\ContinueWatch;
 use App\Models\VideoContent;
 use Illuminate\Http\Request;
 
@@ -129,5 +130,20 @@ class VideoContentController extends Controller
 
         return redirect()->route('video.index')
             ->with('success', 'post deleted successfully');
+    }
+
+    public function continueWatch(Request $request){
+        $data = $request->all();
+        $user = auth()->user();
+        $videoId = $request->id;
+        $currentTime = $request->cTime;
+        $userId = $user->id;
+        $data = [
+            'uid'=>$userId,
+            'vid'=>$videoId,
+            'time'=>$currentTime
+        ];
+        $res = ContinueWatch::continueWatching($data);
+        return $res;
     }
 }

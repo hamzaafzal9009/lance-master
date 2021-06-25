@@ -35,12 +35,12 @@
         <div class="playList">
             @foreach ($recommendedVideos as $video)
                 <div>
-                    <div class="boxImg">
-                        <img src="{{ asset($video->thumbnail) }}" data-href="{{ URL::to('/video', $video->id) }}"
+                    <div class="boxImg" onclick="playVideo(this.id);">
+                        <img src="{{ asset($video->thumbnail) }}"  data-href="{{ URL::to('/video', $video->id) }}"
                             class="video-list clickable" />
-                        {{-- <video controls width='100%' id="recommendedVideoPlayer{{ $video->id }}" height='200px' onclick="playVideo(this.id);">
-                            <source src="{{ asset($video->video_path) }}">
-                        </video> --}}
+                         <!-- <video controls width='100%' class"video_container" onseeked="writeVideoTime(this.currentTime);" id="recommendedVideoPlayer{{ $video->id }}" height='200px' onclick="playVideo(this.id,this.currentTime);">
+                            <source src="{{ asset($video->video_path) }}"> -->
+                        <!-- </video>  -->
                         <div class="px-3">
                             <div class="title">
                                 <div>

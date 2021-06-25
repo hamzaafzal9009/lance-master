@@ -24,10 +24,10 @@ class MainController extends Controller
         return view('front.play', compact(['video']));
     }
 
-    public function notifications()
-    {
-        return auth()->user()->unreadNotifications()->limit(5)->get()->toArray();
-    }
+    // public function notifications()
+    // {
+    //     return auth()->user()->unreadNotifications()->limit(5)->get()->toArray();
+    // }
 
     public function notifies()
     {
@@ -37,6 +37,8 @@ class MainController extends Controller
         // return $user->notifications[0]->notification_by_id;
         return view('front.notifications', compact(['user']));
     }
+
+    
 
     // public function test()
     // {

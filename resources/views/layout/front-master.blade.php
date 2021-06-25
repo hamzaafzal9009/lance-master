@@ -202,10 +202,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
     </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-
     <script>
+    
+
         $(document).ready(function() {
             $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
                 $(".active-tab span").html(activeTab);
@@ -224,11 +226,19 @@
         })
     </script>
     <script>
-        function playVideo(id) {
-            $(`#${id}`).click(function() {
-                this.paused ? this.play() : this.pause();
+        function playVideo(id,currentTime) {
+            $("#id" ).click(function() {
+                
             });
 
+        }
+        function writeVideoTime(id,currentTime){
+            $.ajax({
+            url:"{{ url('/continueWatch') }}",
+            type: 'post',
+            data: {"_token": "{{ csrf_token() }}", id: id, cTime: currentTime},
+            success:function(msg){}
+            });
         }
     </script>
 </body>
