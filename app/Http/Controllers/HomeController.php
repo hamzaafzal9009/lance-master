@@ -21,6 +21,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Add Comment for Testing
         // dd(auth()->user()->roles()->get()[0]->name);
 
         # code...
