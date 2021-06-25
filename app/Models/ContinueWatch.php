@@ -21,6 +21,16 @@ class ContinueWatch extends Model
         return $this->belongsTo('App\Models\VideoContent');
     }
 
+    public function videoHistory()
+    {
+        return $this->belongsTo('App\Models\VideoContent','v_id','id');
+    }
+
+    public function userHistory()
+    {
+        return $this->belongsTo('App\Models\User', 'u_id','id');
+    }
+
     public static function continueWatching($data){
         $model = ContinueWatch::where('u_id', $data['uid'])->where('v_id',$data['vid'])->get();
 
@@ -35,5 +45,21 @@ class ContinueWatch extends Model
             );
         }
 
+    }
+
+    public static function continueWatchLoad($data){
+        $model = ContinueWatch::where('u_id', $data['uid'])->where('v_id',$data['vid'])->first();
+        if($model != null){
+            $res = [
+                'time'=>$model->time,
+                'status'=>'success'
+                ];
+        }else{
+            $res = [
+                'time'=>0,
+                'status'=>'failed'
+                ];
+        }
+        return $res;
     }
 }

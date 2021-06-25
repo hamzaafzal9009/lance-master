@@ -209,6 +209,19 @@
     
 
         $(document).ready(function() {
+            var videoId = window.location.pathname.split("/").pop();
+            $.ajax({
+            url:"{{ url('/getContinueWatch') }}",
+            type: 'post',
+            data: {"_token": "{{ csrf_token() }}", vid: videoId},
+            success:function(msg){
+                if(msg.status == 'success'){
+                    document.getElementById("watchVideos").currentTime = msg.time;
+                }
+            }
+            });
+
+
             $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
                 $(".active-tab span").html(activeTab);
                 $(".previous-tab span").html(previousTab);
@@ -227,6 +240,8 @@
     </script>
     <script>
         function playVideo(id,currentTime) {
+            var url = "{{route('video.play', '')}}"+"/"+id;
+            window.location.href=url;
             $("#id" ).click(function() {
                 
             });

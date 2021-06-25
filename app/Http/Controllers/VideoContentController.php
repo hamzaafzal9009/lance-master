@@ -146,4 +146,20 @@ class VideoContentController extends Controller
         $res = ContinueWatch::continueWatching($data);
         return $res;
     }
+
+    public function continueWatchLoad(Request $request){
+        $data = $request->all();
+        $user = auth()->user();
+        $userId = $user->id;
+        $videoId = $request->vid;
+        $data = [
+            'uid'=>$userId,
+            'vid'=>$videoId
+        ];
+
+        $res = ContinueWatch::continueWatchLoad($data);
+        
+        return $res;
+
+    }
 }

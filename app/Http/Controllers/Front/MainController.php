@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\ContinueWatch;
 use App\Models\Notifies;
 use App\Models\User;
 use App\Models\VideoContent;
@@ -13,15 +14,16 @@ class MainController extends Controller
     {
         $user = auth()->user();
         $recommendedVideos = VideoContent::with(['views', 'user'])->inRandomOrder()->limit(8)->get();
-        // return $recommendedVideos;
-        return view('front.index', compact(['user', 'recommendedVideos']));
+        $watchedHistory = ContinueWatch::with(['userHistory','videoHistory'])->where('u_id',$user->id)->get();
+        return view('front.index', compact(['user', 'recommendedVideos','watchedHistory']));
     }
 
     public function playVideo($id)
     {
         // return $id;
         $video = VideoContent::find($id);
-        return view('front.play', compact(['video']));
+        $continueWatch = ContinueWatch::find($id);
+        return view('front.play', compact(['video','continueWatch']));
     }
 
     // public function notifications()

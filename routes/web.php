@@ -30,7 +30,8 @@ Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
     Route::get('/home', [App\Http\Controllers\Front\MainController::class, 'index'])->name('home');
     Route::get('/video/{id}', [App\Http\Controllers\Front\MainController::class, 'playVideo'])->name('video.play');
     Route::post('/continueWatch', [App\Http\Controllers\VideoContentController::class, 'continueWatch'])->name('continueWatch');
-    
+    Route::post('/getContinueWatch', [App\Http\Controllers\VideoContentController::class, 'continueWatchLoad'])->name('continueWatchLoad');
+
     // Notifications
     Route::get('/notifications', [App\Http\Controllers\Front\MainController::class, 'notifications'])->name('notifications');
     Route::get('/notifies', [App\Http\Controllers\Front\MainController::class, 'notifies'])->name('page.notifications');
