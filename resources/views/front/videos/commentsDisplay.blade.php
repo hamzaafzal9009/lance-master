@@ -17,11 +17,19 @@
 
             <button type="submit" class="btn btn-primary">Reply</button>
         </form>
-        <form action="" method="POST">
-            @csrf
-            <input type="hidden" name="comment_id" value="{{ $comment->id }}">
-            <button type="submit" class="btn btn-link">Like</button>
-        </form>
+        @isset($comment->like)
+
+            @if ($comment->like->user_id != auth()->user()->id && $comment->like->comment_id != $comment->id)
+
+                <form action="{{ route('comments.like') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="comment_id" value="{{ $comment->id }}">
+                    <button type="submit" class="btn btn-link">Like</button>
+                </form>
+
+            @endif
+
+        @endisset
 
         @include('front.videos.commentsDisplay', ['comments' => $comment->replies] )
 
