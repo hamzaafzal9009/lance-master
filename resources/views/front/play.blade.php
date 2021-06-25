@@ -1,3 +1,5 @@
+
+
 @extends('layout.front-master')
 @section('title', 'Lance Master | Home Page')
 
@@ -8,6 +10,7 @@
 
 
     <div class="video">
+
         @php 
         if($video->continueWatches->first()){
             $v_time = round($video->continueWatches->first()->time);
@@ -21,6 +24,14 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
             Your browser does not support the video tag.
         </video>
+
+        {{-- <video autoplay controls id="{{ $video->id }}" onseeked="writeVideoTime(this.id,this.currentTime);"
+            onclick="writeVideoTime(this.id,this.currentTime);"
+            class="recommended-videos" id="recommendedVideoPlayer{{ $video->id }}" data-id="{{ $video->id }}" data-time="{{ $v_time }}">
+            <source src="{{ asset($video->video_path) }}" type="video/mp4">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+            Your browser does not support the video tag.
+        </video> --}}
         {{-- <video autoplay controls id="{{ $video->id }}" onseeked="writeVideoTime(this.id,this.currentTime);"
             onclick="writeVideoTime(this.id,this.currentTime);">
             <source src="{{ asset($video->video_path) }}" type="video/mp4">
@@ -39,7 +50,7 @@
 
                 <div class="align-self-center px-3">
                     <h4> <a href="{{ route('channel.index', $video->user->id) }}"
-                            class="text-light">{{ $video->user->name }}</a></h4>
+                            class="text-light font-weight-bold">{{ $video->user->name }}</a></h4>
                     <p>{{ sizeof($video->user->subscribers) }} Subscribers</p>
                 </div>
             </div>
@@ -47,21 +58,25 @@
     </div>
 
 
-    <div class="d-flex flex-column px-3">
-        <h4 class="text-left ml-3">{{ $video->title }}</h4>
+    <div class="">
+        <h4 class="text-left" style="padding-bottom: 10px;">{{ $video->title }}</h4>
         <div class="d-flex flex-column">
-            <div class="col-md-3 d-flex ">
-                <p>{{ sizeof($video->views) }} Views</p>
+            <div class="col-md-3 d-flex" style="padding-left: -11px;margin-left: -15px;">
+                <p style="margin: 0px 20px 0px 0px;">{{ sizeof($video->views) }} Views</p>
                 <p>
-                    {{ explode('-', date('d-m-Y', strtotime($video->created_at)))[0] . '-' . $video->created_at->format('F') . '-' . explode('-', date('d-m-Y', strtotime($video->created_at)))[2] }}
+                    {{ explode('-', date('M d, Y', strtotime($video->created_at)))[0] }}
                 </p>
             </div>
-            <div class="d-flex my-3">
-                <div class="d-flex flex-column mx-3">
+            <div class="d-flex" style="padding-top: 0px;margin-top: 0px;font-size: 15px;">
+                <div class="d-flex flex-column mx-1" style="padding-left: -29px;">
+                    <a class="text-light" href="#"><i class="fa fa-heart ml-2"></i></a>
+                    Like
+                </div>
+                <div class="d-flex flex-column mx-2" style="padding-left: -29px;">
                     <a class="text-light" href="#"><i class="fa fa-share ml-3"></i></a>
                     Share
                 </div>
-                <div class="d-flex flex-column mx-3">
+                <div class="d-flex flex-column">
                     <a class="text-light" href="#"><i class="fa fa-plus ml-2"></i></a>
                     Save
                 </div>
@@ -145,7 +160,6 @@
     </div>
 
 @endsection
-
 
 @section('jscripts')
 
