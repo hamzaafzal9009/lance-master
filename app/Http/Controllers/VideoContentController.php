@@ -158,7 +158,7 @@ class VideoContentController extends Controller
         ];
 
         $res = ContinueWatch::continueWatchLoad($data);
-        
+
         return $res;
 
     }

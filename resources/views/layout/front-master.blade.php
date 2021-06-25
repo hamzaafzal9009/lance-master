@@ -237,10 +237,6 @@
         function playVideo(id,currentTime) {
             var url = "{{route('video.play', '')}}"+"/"+id;
             window.location.href=url;
-            $("#id" ).click(function() {
-                
-            });
-
         }
         function writeVideoTime(id,currentTime){
             $.ajax({

@@ -8,8 +8,8 @@
 
 
     <div class="video">
-        <video autoplay controls id="{{ $video->id }}" onseeked="writeVideoTime(this.id,this.currentTime);"
-            onclick="writeVideoTime(this.id,this.currentTime);">
+        <video autoplay controls id="watchVideos" vid="{{ $video->id }}" onseeked="writeVideoTime(this.getAttribute('vid'),this.currentTime);"
+            onclick="writeVideoTime(this.getAttribute('vid'),this.currentTime);">
             <source src="{{ asset($video->video_path) }}" type="video/mp4">
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
             Your browser does not support the video tag.
