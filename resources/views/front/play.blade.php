@@ -1,3 +1,5 @@
+
+
 @extends('layout.front-master')
 @section('title', 'Lance Master | Home Page')
 
@@ -8,6 +10,7 @@
 
 
     <div class="video">
+
         @php 
         if($video->continueWatches->first()){
             $v_time = round($video->continueWatches->first()->time);
@@ -21,6 +24,14 @@
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
             Your browser does not support the video tag.
         </video>
+
+        {{-- <video autoplay controls id="{{ $video->id }}" onseeked="writeVideoTime(this.id,this.currentTime);"
+            onclick="writeVideoTime(this.id,this.currentTime);"
+            class="recommended-videos" id="recommendedVideoPlayer{{ $video->id }}" data-id="{{ $video->id }}" data-time="{{ $v_time }}">
+            <source src="{{ asset($video->video_path) }}" type="video/mp4">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+            Your browser does not support the video tag.
+        </video> --}}
         {{-- <video autoplay controls id="{{ $video->id }}" onseeked="writeVideoTime(this.id,this.currentTime);"
             onclick="writeVideoTime(this.id,this.currentTime);">
             <source src="{{ asset($video->video_path) }}" type="video/mp4">
@@ -28,28 +39,78 @@
             Your browser does not support the video tag.
         </video> --}}
     </div>
-
-    <div class="v-description">
-        <p>{{ $video->description }}</p>
-    </div>
-
     <div class="user-details my-3">
         <div class="d-flex justify-content-between">
             <div class="d-flex">
                 @if ($video->user->profile == null)
-                    <img src="{{ asset('assets/images/avatar-1.jpg') }}" alt="..." class="profile-image">
+                    <img src="{{ asset('assets/images/avatar-1.jpg') }}" alt="..." class="profile-image play">
                 @else
                     <img src="{{ asset($video->user->profile->profile_image) }}" alt="..." class="profile-image">
                 @endif
 
                 <div class="align-self-center px-3">
                     <h4> <a href="{{ route('channel.index', $video->user->id) }}"
-                            class="text-light">{{ $video->user->name }}</a></h4>
+                            class="text-light font-weight-bold">{{ $video->user->name }}</a></h4>
                     <p>{{ sizeof($video->user->subscribers) }} Subscribers</p>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <div class="">
+        <h4 class="text-left" style="padding-bottom: 10px;">{{ $video->title }}</h4>
+        <div class="d-flex flex-column">
+            <div class="col-md-3 d-flex" style="padding-left: -11px;margin-left: -15px;">
+                <p style="margin: 0px 20px 0px 0px;">{{ sizeof($video->views) }} Views</p>
+                <p>
+                    {{ explode('-', date('M d, Y', strtotime($video->created_at)))[0] }}
+                </p>
+            </div>
+            <div class="d-flex" style="padding-top: 0px;margin-top: 0px;font-size: 15px;">
+                <div class="d-flex flex-column mx-1" style="padding-left: -29px;">
+                    <a class="text-light" href="#"><i class="fa fa-heart ml-2"></i></a>
+                    Like
+                </div>
+                <div class="d-flex flex-column mx-2" style="padding-left: -29px;">
+                    <a class="text-light" href="#"><i class="fa fa-share ml-3"></i></a>
+                    Share
+                </div>
+                <div class="d-flex flex-column">
+                    <a class="text-light" href="#"><i class="fa fa-plus ml-2"></i></a>
+                    Save
+                </div>
+                @php
+                    $subscribe = false;
+                @endphp
+                @foreach (auth()->user()->subscribers as $item)
+                    @if ($item->pivot->subscriber_id == auth()->id())
+                        @php
+                            $subscribe = true;
+                        @endphp
+                        <div class="d-flex flex-column mx-3">
+                            <a href="{{ route('channel.unsubscribe', [$item->pivot->subscriber_id, $item->pivot->account_id]) }}"
+                                class="text-light">
+                                <i class="fa fa-bell ml-4"></i>
+                            </a>
+                            Unsubscribe
+                        </div>
+                    @endif
+                @endforeach
+                @if (!$subscribe)
+                    <div class="d-flex flex-column mx-3">
+                        <a href="{{ route('channel.subscribe', auth()->user()->id) }}" class="text-light">
+                            <i class="fa fa-bell ml-4"></i>
+                        </a>
+                        Subscribe
+                    </div>
+                @endif
+
+
+            </div>
+        </div>
+    </div>
+    <hr>
 
 
     <div class="videos mt-3">
@@ -99,7 +160,6 @@
     </div>
 
 @endsection
-
 
 @section('jscripts')
 
