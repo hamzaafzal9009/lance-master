@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class VideoContent extends Model
 {
@@ -29,17 +30,17 @@ class VideoContent extends Model
     }
     public function continueWatches()
     {
-        $comments = $this->hasMany('App\Models\ContinueWatch', 'v_id', 'id')->latest();
-        // if($published) $comments->where('published', 1);
-
+        $user = Auth::user();
+        // return $user; 
+        $comments = $this->hasMany('App\Models\ContinueWatch', 'v_id', 'id')->where('u_id', $user->id)->latest();        
         return $comments;
-        // return $this->hasMany('App\Models\ContinueWatch', 'v_id', 'id')
-        //     ->latest()->first();
     }
 
     public function views()
     {
-        return $this->hasMany('App\Models\View', 'v_id', 'id');
+        return  $this->hasMany('App\Models\ContinueWatch', 'v_id', 'id')->latest();        
+        // return $this->hasMany('App\Models\ContinueWatch', 'v_id', 'id')->get();        
+        // return $this->hasMany('App\Models\View', 'v_id', 'id');
     }
 
     public function histories()

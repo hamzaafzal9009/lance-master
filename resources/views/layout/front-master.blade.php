@@ -127,6 +127,10 @@
                     <a class="nav-link" href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ route('watchlist') }}">Watchlist</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="./live.html">Live</a>
                 </li>
                 <li class="nav-item">
@@ -216,80 +220,9 @@
             this.classList.toggle("active");
         })
     </script>
-    <script>
 
-        function syncWatchTime(videoId, currentTime){//pass video id to this function where you call it.
-            console.log(videoId);
-            console.log(currentTime);
+    @yield('jscripts')
 
-            var data = {time: currentTime}; //data to send to server 
-            var dataType = "json";//expected datatype from server 
-            var headers = { 'X-CSRF-TOKEN': $('input[name="_token"]').val()};
-            $.ajax({   
-                url: '/store/'+videoId,   //url of the server which stores time data   
-                data: data,
-                headers: headers,
-                dataType: dataType,
-                success: function(data,status){
-                        // alert(status);
-                        // var data = JSON.parse(data)
-                        // console.log(data['message']);
-                }   
-            });
-        }
-
-        $(function() {
-
-            var elements = document.getElementsByClassName("recommended-videos");
-
-            var loadVideoFunction = function(vid_id, vid_time) {
-                var myvideo = document.getElementById(vid_id);
-                videoStartTime = vid_time;
-                myvideo.currentTime = videoStartTime;
-                myvideo.play();
-                myvideo.pause();
-            };
-
-            for (var i = 0; i < elements.length; i++) {
-                var vid_id = elements[i].getAttribute("id");
-                var vid_time = elements[i].getAttribute("data-time");
-                elements[i].addEventListener('loadedmetadata', loadVideoFunction(vid_id, vid_time), false);
-            }
-
-            document.querySelectorAll('.recommended-videos').forEach(item => {
-                item.addEventListener('play', event => {
-                    console.log('PLAY');
-                });
-
-                item.addEventListener('pause', event => {
-                    console.log('PAUSE');                
-                });
-
-                item.addEventListener('timeupdate', event => {
-                    let req_stat = item.currentTime % 3;
-                    if(req_stat <= 0.4){
-                        let vid_id = item.getAttribute("data-id");
-                        console.log(req_stat);
-                        syncWatchTime(vid_id, item.currentTime)
-                    }
-
-                });
-            })
-
-            function onPlayProgress(data) {
-                status.text(data.seconds + 's played');
-            }
-
-        });
-
-
-        // function playVideo(id) {
-        //     $(`#${id}`).click(function() {
-        //         this.paused ? this.play() : this.pause();
-        //     });
-
-        // }
-    </script>
 </body>
 
 </html>

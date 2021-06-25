@@ -1,36 +1,10 @@
 @extends('layout.front-master')
-@section('title', 'Lance Master | Home Page')
+@section('title', 'Lance Master | Watchlist')
 
 @section('content')
-    <div id="carousalTop" class="carousel slide mt-5" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#carousalTop" data-slide-to="0" class="active"></li>
-            <li data-target="#carousalTop" data-slide-to="1"></li>
-            <li data-target="#carousalTop" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="{{ asset('assets/front/images/banner1.jpg') }}" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('assets/front/images/banner2.jpg') }}" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('assets/front/images/banner3.jpg') }}" class="d-block w-100" alt="...">
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carousalTop" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carousalTop" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
     <div class="playRow mt-4">
         <div class="heading">
-            <h2>Recommended For You</h2>
+            <h2>Watchlist</h2>
         </div>
         <div class="playList">
             @foreach ($recommendedVideos as $video)
