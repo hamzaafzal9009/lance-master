@@ -29,6 +29,10 @@ Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
     // Front Routes
     Route::get('/home', [App\Http\Controllers\Front\MainController::class, 'index'])->name('home');
     Route::get('/video/{id}', [App\Http\Controllers\Front\MainController::class, 'playVideo'])->name('video.play');
+
+    // Watchlist
+    Route::get('/watchlist', [App\Http\Controllers\WatchListController::class, 'index'])->name('watchlist');
+
     // Notifications
     Route::get('/notifications', [App\Http\Controllers\Front\MainController::class, 'notifications'])->name('notifications');
     Route::get('/notifies', [App\Http\Controllers\Front\MainController::class, 'notifies'])->name('page.notifications');

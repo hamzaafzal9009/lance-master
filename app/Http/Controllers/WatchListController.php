@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\WatchList;
+use App\Models\Subscriber;
+use App\Models\Notifies;
+use App\Models\User;
+use App\Models\VideoContent;
 use Illuminate\Http\Request;
+
 
 class WatchListController extends Controller
 {
@@ -14,7 +19,14 @@ class WatchListController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user();
+        
+        $subscriptions = Subscriber::where('subscriber_id', '=', $user->id)->orderBy('created_at','asc')->pluck('account_id');
+        // dd($subscriptions); 
+
+        $recommendedVideos = VideoContent::with(['views', 'user', 'continueWatches'])->wherein('u_id',$subscriptions)->inRandomOrder()->limit(8)->get();
+        // dd($recommendedVideos);
+        return view('watchlist.index', compact(['user', 'recommendedVideos']));
     }
 
     /**

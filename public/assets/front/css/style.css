@@ -558,3 +558,9 @@ nav {
 .color-white {
     color: #fff;
 }
+
+.v-description {
+    font-size: 30px;
+    margin: auto;
+    padding: 20px 10px;
+}

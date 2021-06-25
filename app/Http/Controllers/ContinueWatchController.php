@@ -53,7 +53,7 @@ class ContinueWatchController extends Controller
         }
 
         //use this one if you update the time instead of inserting a new row each time a time is saved.
-        $contWatchTime = ContinueWatch::where('v_id',$videoId)->latest()->first(); 
+        $contWatchTime = ContinueWatch::where('v_id',$videoId)->where('u_id', $user_id)->latest()->first(); 
 
         if($contWatchTime === null){
             $contWatchModel = new ContinueWatch();

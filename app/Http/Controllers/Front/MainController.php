@@ -13,7 +13,7 @@ class MainController extends Controller
     {
         $user = auth()->user();
         $recommendedVideos = VideoContent::with(['views', 'user', 'continueWatches'])->inRandomOrder()->limit(8)->get();
-        // return $recommendedVideos;
+        // return $recommendedVideos->views;
         return view('front.index', compact(['user', 'recommendedVideos']));
     }
 
@@ -21,8 +21,9 @@ class MainController extends Controller
     {
         // return $id;
         // $video = VideoContent::find($id);
+
         $video = VideoContent::with(['continueWatches'])->where('id', $id)->get()->first();
-        // dd($video->continueWatches);
+        // dd($video);
         return view('front.play', compact(['video']));
     }
 
