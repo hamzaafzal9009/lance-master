@@ -34,6 +34,7 @@ Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
     Route::get('/notifies', [App\Http\Controllers\Front\MainController::class, 'notifies'])->name('page.notifications');
     // Comments
     Route::post('/comments', [App\Http\Controllers\Front\CommentController::class, 'store'])->name('comments.store');
+    Route::post('/like-comments', [App\Http\Controllers\Front\CommentController::class, 'like'])->name('comments.like');
     // Channel Routes
     Route::get('/channel/{id}', [App\Http\Controllers\Front\ChannelController::class, 'index'])->name('channel.index');
     Route::get('/subscribe/{id}', [App\Http\Controllers\Front\ChannelController::class, 'subscribe'])->name('channel.subscribe');

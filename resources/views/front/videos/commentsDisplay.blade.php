@@ -15,9 +15,12 @@
                 <input type="hidden" name="parent_id" value="{{ $comment->id }}">
             </div>
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Reply</button>
-            </div>
+            <button type="submit" class="btn btn-primary">Reply</button>
+        </form>
+        <form action="" method="POST">
+            @csrf
+            <input type="hidden" name="comment_id" value="{{ $comment->id }}">
+            <button type="submit" class="btn btn-link">Like</button>
         </form>
 
         @include('front.videos.commentsDisplay', ['comments' => $comment->replies] )

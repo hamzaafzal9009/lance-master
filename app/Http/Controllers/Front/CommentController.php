@@ -21,4 +21,9 @@ class CommentController extends Controller
 
         return back();
     }
+
+    public function like(Request $request)
+    {
+        # code...
+    }
 }
