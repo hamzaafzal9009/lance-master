@@ -96,6 +96,12 @@
             text-decoration: underline
         }
 
+        .profile-image.play {
+            height: 50px;
+            width: 50px;
+            margin-left: 15px
+        }
+
     </style>
 
 

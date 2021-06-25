@@ -12,12 +12,12 @@ class CommentLike extends Model
 
     public function user()
     {
-        $this->belongsTo('App\Models\User', 'user_id', 'id');
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
     public function comment()
     {
-        $this->belongsTo('App\Models\Comment', 'comment_id', 'id');
+        return $this->belongsTo('App\Models\Comment', 'comment_id', 'id');
     }
 
 }
