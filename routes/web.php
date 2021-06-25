@@ -30,11 +30,15 @@ Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
     Route::get('/home', [App\Http\Controllers\Front\MainController::class, 'index'])->name('home');
     Route::get('/video/{id}', [App\Http\Controllers\Front\MainController::class, 'playVideo'])->name('video.play');
     Route::post('/continueWatch', [App\Http\Controllers\VideoContentController::class, 'continueWatch'])->name('continueWatch');
-    
+
     // Notifications
     Route::get('/notifications', [App\Http\Controllers\Front\MainController::class, 'notifications'])->name('notifications');
     Route::get('/notifies', [App\Http\Controllers\Front\MainController::class, 'notifies'])->name('page.notifications');
-    
+
+    // Comments
+
+    Route::post('/comments', [App\Http\Controllers\Front\CommentController::class, 'store'])->name('comments.store');
+
     // Channel Routes
     Route::get('/channel/{id}', [App\Http\Controllers\Front\ChannelController::class, 'index'])->name('channel.index');
     Route::get('/subscribe/{id}', [App\Http\Controllers\Front\ChannelController::class, 'subscribe'])->name('channel.subscribe');
@@ -44,8 +48,6 @@ Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
     Route::post('/create-playlist/{id}', [App\Http\Controllers\Front\ChannelController::class, 'storePlaylist'])->name('channel.storePlaylist');
     Route::get('/assign-video-playlist/{playlist_id}', [App\Http\Controllers\Front\ChannelController::class, 'assignVideoToPlaylistView'])->name('channel.assignVideoToPlaylistView');
     Route::post('/assign-video-playlist/{playlist_id}', [App\Http\Controllers\Front\ChannelController::class, 'assignVideoToPlaylist'])->name('channel.assignVideoToPlaylist');
-
-    
 
     // Admin Routes
     Route::prefix('admin')->middleware('can:isAdmin')->group(function () {
@@ -78,5 +80,5 @@ Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
 
     Route::get('/form-upload', [App\Http\Controllers\VideoContentController::class, 'create'])->name('uploadform');
     Route::post('/form-upload', [App\Http\Controllers\VideoContentController::class, 'store'])->name('uploadform');
-   
+
 });

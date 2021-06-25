@@ -58,8 +58,22 @@
             Hello
         </div>
 
-        <div class="tab-pane fade" id="comments">
-            {{-- @include('front.') --}}
+        <div class="tab-pane fade text-left" id="comments">
+            @include('front.videos.commentsDisplay', ['comments' => $video->comments , 'video_id' => $video->id])
+
+            <hr>
+            <h4 class="text-left">Add Comment</h4>
+            <form action="{{ route('comments.store') }}" method="POST" class="col-md-4">
+                @csrf
+                <div class="form-group">
+                    <textarea name="body" class="form-control"></textarea>
+                    <input type="hidden" name="video_id" value="{{ $video->id }}">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Add Comment</button>
+                </div>
+            </form>
+            {{-- {{ $video->comments }} --}}
         </div>
     </div>
 
