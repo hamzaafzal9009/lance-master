@@ -13,6 +13,7 @@ class UserController extends Controller
     //
     public function editUserDetails($id)
     {
+        // Comment Hamza for Test
         // dd('Hello');
         $user = User::find($id);
         return view('users.accounts-edits', compact('user'));
