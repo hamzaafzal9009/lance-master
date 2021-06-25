@@ -62,4 +62,9 @@ class ContinueWatch extends Model
         }
         return $res;
     }
+
+    public function views()
+    {
+        return $this->hasOne('App\Models\View', 'v_id', 'v_id');
+    }
 }

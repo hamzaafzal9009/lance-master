@@ -76,22 +76,20 @@
         <h2>Watch History</h2>
         </div>
         <div class="playList">
-            @foreach ($watchedHistory as $video)
+            @foreach ($watchedHistory as $videos)
                 <div>
-                    <div class="boxImg" vid="{{ $video->id }}" onclick="playVideo(this.getAttribute('vid'),this.currentTime);">
-                        <img src="{{ asset($video->thumbnail) }}"  data-href="{{ URL::to('/video', $video->id) }}"
+                    <div class="boxImg">
+                        <img src="{{ asset($video->thumbnail) }}"  data-href="{{ URL::to('/video', $videos->videoHistory->id) }}"
                             class="video-list clickable"/>
-                         <!-- <video controls width='100%' class"video_container" currentTime="6" onseeked="writeVideoTime(this.currentTime);" id="recommendedVideoPlayer{{ $video->id }}" height='200px' onclick="playVideo(this.id,this.currentTime);">
-                            <source src="{{ asset($video->videoHistory->video_path) }}"> 
-                        </video>  -->
+                         
                         <div class="px-3">
                             <div class="title">
                                 <div>
-                                    {{ $video->title }}
+                                    {{ $videos->videoHistory->title }}
                                     <p class="float-right">
-                                        @if (isset($video->view))
-                                            @if (sizeof($video->view) > 0)
-                                                {{ $video->views->total_views }} Views
+                                        @if (isset($videos->views))
+                                            @if (isset($videos->views))
+                                                {{ $videos->views->total_views }} Views
                                             @endif
                                         @else
                                             0 Views
@@ -102,8 +100,10 @@
                             <div class="details">
                                 <div class="profile-pic">
                                     <img src="{{ asset('assets/front/images/dummy.jpg') }}" alt="">
+                                    
                                 </div>
                                 <div class="video-details">
+                                {{$videos->userHistory->name}}
                                 </div>
                             </div>
                         </div>

@@ -1,9 +1,8 @@
 @extends('layout.front-master')
 @section('title', 'Lance Master | Home Page')
-
-    <?php
-    // dd($video->video_path);
-    ?>
+<?php
+// dd( $video);
+?>
 @section('content')
 
 

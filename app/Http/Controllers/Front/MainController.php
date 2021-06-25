@@ -14,14 +14,16 @@ class MainController extends Controller
     {
         $user = auth()->user();
         $recommendedVideos = VideoContent::with(['views', 'user'])->inRandomOrder()->limit(8)->get();
-        $watchedHistory = ContinueWatch::with(['userHistory','videoHistory'])->where('u_id',$user->id)->get();
+        $watchedHistory = ContinueWatch::with(['userHistory','videoHistory','views'])->where('u_id',$user->id)->get();
         return view('front.index', compact(['user', 'recommendedVideos','watchedHistory']));
     }
 
     public function playVideo($id)
     {
+
         $video = VideoContent::find($id);
         $continueWatch = ContinueWatch::find($id);
+        // dd($video);
         return view('front.play', compact(['video','continueWatch']));
     }
 
