@@ -81,7 +81,7 @@
 
     <div class="playRow mt-6">
         <div class="heading">
-            <h2><i class="fa fa-clock"></i> Watch List</h2>
+            <h2>Watch List</h2>
         </div>
         <div class="playList">
             @foreach ($watchlistVideos as $video)
@@ -183,7 +183,7 @@
 
     <div class="playRow mt-4">
         <div class="heading"  style="text-de: 2px solid white">
-            <h2><i class="fa fa-fire"></i> Trending</h2>
+            <h2>Trending</h2>
         </div>
         <div class="playList">
             @foreach ($trendingVideos as $video)
