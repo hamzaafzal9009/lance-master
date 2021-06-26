@@ -139,13 +139,13 @@
                     <a class="nav-link" href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ route('watchlist') }}"><i class="fa fa-clock"></i> Watchlist</a>
+                    <a class="nav-link" href="{{ route('watchlist') }}">Watchlist</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./library.php">Live</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('library') }}"><i class="fa fa-play-circle"></i> Library</a>
+                    <a class="nav-link" href="{{ route('library') }}">Library</a>
                 </li>
             </ul>
 
