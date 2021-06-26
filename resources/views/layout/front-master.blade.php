@@ -13,6 +13,7 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/front/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <link rel="stylesheet" href="{{ asset('assets/front/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/front/css/notification.css') }}">
     <style>
@@ -100,6 +101,11 @@
             height: 50px;
             width: 50px;
             margin-left: 15px
+        .ui-autocomplete
+        {
+            position:absolute;
+            cursor:default;
+            z-index:1001 !important
         }
 
     </style>
@@ -132,23 +138,23 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ route('home') }}">Home</a>
                 </li>
-                <li class="nav-item">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ route('watchlist') }}">Watchlist</a>
+                    <a class="nav-link" href="{{ route('watchlist') }}"><i class="fa fa-clock"></i> Watchlist</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./live.html">Live</a>
+                    <a class="nav-link" href="./library.php">Live</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./library.php">Library</a>
+                    <a class="nav-link" href="{{ route('library') }}"><i class="fa fa-play-circle"></i> Library</a>
                 </li>
             </ul>
 
-            <form class="form-inline my-2 my-lg-0">
+            <form class="form-inline my-2 my-lg-0" id="search-form" action="{{ route('home') }}" methdd="GET" autocomplete="off">
                 <!-- Actual search box -->
-                <div class="form-group has-search">
+                {{ csrf_field() }}
+                <div class="form-group has-search autocomplete ui-widget">
                     <span class="fa fa-search form-control-feedback"></span>
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control typeahead " id="search" placeholder="Search">
                 </div>
             </form>
             <div class="right d-flex">
@@ -198,7 +204,9 @@
     </div>
 
     <script src="https://kit.fontawesome.com/74d240b4ae.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
     </script>
@@ -209,6 +217,53 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
     <script>
+
+        $( function() {
+            $( "#search" ).autocomplete({
+                source: function( request, response ) {
+                    // Fetch data
+                    var headers = { 'X-CSRF-TOKEN': $('input[name="_token"]').val()};
+                    $.ajax({
+                        url:"{{route('autocomplete')}}",
+                        type: 'get',
+                        dataType: "json",
+                        headers: headers,
+                        data: {
+                            search: request.term
+                        },
+                        success: function( data ) {
+                        response( data );
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                    // Set selection
+                    $('#search').val(ui.item.label); // display the selected text
+                    return false;
+                }
+            });
+        } );
+        
+        // var path = "{{ url('autocomplete') }}";
+        // $('#search').typeahead({
+        //     minLength: 2,
+        //     source:  function (query, process) {
+        //     return $.get(path, { query: query }, function (data) {
+        //             console.log('Data',data);
+        //             return process(data);
+        //         });
+        //     }
+        // });
+
+        $('#search-form').submit(function( event ) {
+            event.preventDefault();
+            let q = $('#search').val(); 
+            var path = "{{ url('home') }}?q="+q;
+            console.log(path);
+            document.location.href = path;
+
+        });
+
         $(document).ready(function() {
             $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
                 $(".active-tab span").html(activeTab);

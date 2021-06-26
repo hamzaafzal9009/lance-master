@@ -374,6 +374,7 @@ nav {
 
 .heading h2 {
     margin: 0;
+    margin: 40px 0px 5px 0px;
 }
 
 .bothIcon span {
@@ -552,7 +553,7 @@ nav {
     color: #fff;
 }
 .carousel-item img {
-    height: 440px;
+    height: 300px;
 }
 
 .color-white {
