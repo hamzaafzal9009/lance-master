@@ -17,6 +17,6 @@ class ContinueWatch extends Model
 
     public function video()
     {
-        return $this->belongsTo('App\Models\VideoContent');
+        return $this->belongsTo('App\Models\VideoContent', 'v_id', 'id');
     }
 }

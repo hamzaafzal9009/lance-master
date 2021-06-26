@@ -14,7 +14,7 @@
     </div>
     <div class="user-details">
         <div class="container">
-            <div class="d-flex justify-content-between">
+            <div class="text-right">
                 <div class="d-flex">
                     @if ($user->profile == null)
                         <img src="{{ asset('assets/images/avatar-1.jpg') }}" alt="..." class="profile-image">
@@ -38,8 +38,10 @@
                             $subscribe = true;
                         @endphp
                         <a href="{{ route('channel.unsubscribe', [$item->pivot->subscriber_id, $item->pivot->account_id]) }}"
-                            class="align-self-center btn btn-danger">Unsubscribe</a>
-                    @endif
+                            class="align-self-center btn btn-danger">Unsubscribe</a>&nbsp;
+                        <a href="{{ route('channel.unsubscribe', [$item->pivot->subscriber_id, $item->pivot->account_id]) }}"
+                                class="btn btn-light" disabled><i class="fa fa-bell"></i></a>
+                        @endif
                 @endforeach
                 @if (!$subscribe)
                     <a href="{{ route('channel.subscribe', $user->id) }}"

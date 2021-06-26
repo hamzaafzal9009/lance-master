@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\History;
+use App\Models\ContinueWatch;
 use Illuminate\Http\Request;
 
 class HistoryController extends Controller
@@ -14,7 +15,17 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user();
+        if($user === null){
+            return response()->json(['message' => 'User not authenticated'], 403);
+        }
+        $user_id = $user->id;
+
+        //use this one if you update the time instead of inserting a new row each time a time is saved.
+        $historyVideos = ContinueWatch::with(['video'])->where('u_id', $user_id)->orderBy('updated_at', 'desc')->get(); 
+        // dd($historyVideos);
+
+        return view('history.index', compact(['user', 'historyVideos']));
     }
 
     /**

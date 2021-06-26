@@ -29,9 +29,17 @@ Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
     // Front Routes
     Route::get('/home', [App\Http\Controllers\Front\MainController::class, 'index'])->name('home');
     Route::get('/video/{id}', [App\Http\Controllers\Front\MainController::class, 'playVideo'])->name('video.play');
+    Route::get('/trending', [App\Http\Controllers\Front\MainController::class, 'trending'])->name('trending');
+    Route::get('/library', [App\Http\Controllers\Front\MainController::class, 'library'])->name('library');
 
     // Watchlist
     Route::get('/watchlist', [App\Http\Controllers\WatchListController::class, 'index'])->name('watchlist');
+
+    // History
+    Route::get('/history', [App\Http\Controllers\HistoryController::class, 'index'])->name('history');
+
+    // Search
+    Route::get('autocomplete', [App\Http\Controllers\SearchController::class, 'autocomplete'])->name('autocomplete');
 
     // Notifications
     Route::get('/notifications', [App\Http\Controllers\Front\MainController::class, 'notifications'])->name('notifications');
