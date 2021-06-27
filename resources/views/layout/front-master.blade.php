@@ -254,7 +254,7 @@
         $('#search-form').submit(function( event ) {
             event.preventDefault();
             let q = $('#search').val(); 
-            var path = "{{ url('home') }}?q="+q;
+            var path = "{{ url('search') }}?q="+q;
             console.log(path);
             document.location.href = path;
 
