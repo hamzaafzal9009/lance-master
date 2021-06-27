@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth', 'web', 'twofactor'], function () {
     Route::get('/history', [App\Http\Controllers\HistoryController::class, 'index'])->name('history');
 
     // Search
+    Route::get('/search', [App\Http\Controllers\SearchController::class, 'index'])->name('search');
     Route::get('autocomplete', [App\Http\Controllers\SearchController::class, 'autocomplete'])->name('autocomplete');
 
     // Notifications

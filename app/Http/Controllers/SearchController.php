@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\VideoContent;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+
 
 class SearchController extends Controller
 {
@@ -12,9 +15,24 @@ class SearchController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user = auth()->user();
+        $user_id = $user->id;
+
+        if($request->q){
+            $v_ids = VideoContent::select("id")
+            ->where("title","LIKE","%{$request->get('q')}%")
+            ->pluck('id');
+
+            $searchVideos = VideoContent::with(['views', 'user', 'continueWatches'])->whereIn('id', $v_ids)->inRandomOrder()->limit(8)->get();
+        }
+        else{
+            $searchVideos = VideoContent::with(['views', 'user', 'continueWatches'])->inRandomOrder()->limit(8)->get();
+        }
+        // dd($recommendedVideos);
+        // return $recommendedVideos->views;
+        return view('search.index', compact(['user', 'searchVideos']));        
     }
 
     /**
